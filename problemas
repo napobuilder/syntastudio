@@ -1,0 +1,72 @@
+
+SyntaStudio
+Comenzar un Proyecto
+Soluciones E-Commerce para Productos y Servicios Especializados
+
+Transformamos procesos de venta complejos en experiencias de usuario fluidas, permitiendo la venta de servicios y productos de alto valor directamente en línea.
+Soluciones para Crecer Tu Negocio
+
+Tecnología enfocada en resultados comerciales tangibles.
+Plataformas E-Commerce
+
+Tiendas online y sistemas de venta a medida con pasarelas de pago seguras e inventario sincronizado.
+Automatización con IA
+
+Asistentes virtuales que guían a tus clientes, califican leads y automatizan tareas repetitivas 24/7.
+Diseño Centrado en Conversión
+
+Interfaces diseñadas no solo para ser atractivas, sino para guiar al usuario hacia la compra o el contacto.
+Herramientas de Gestión
+
+Software interno para administrar clientes (CRM), reservas o inventario de forma centralizada y eficiente.
+Casos de Éxito
+
+Resultados reales para clientes con necesidades únicas.
+Medical Travel Hub Project
+Medical Travel Hub
+
+Desarrollamos una plataforma e-commerce para una empresa de turismo médico, facilitando la reserva de paquetes complejos que incluyen procedimientos y alojamiento. La solución optimizó el proceso de venta y aumentó la confianza del cliente.
+Plataforma Psiquiátrica Dra. Guevara Project
+Plataforma Psiquiátrica Dra. Guevara
+
+Creamos una plataforma digital para una reconocida psiquiatra, automatizando la captación de pacientes. Los usuarios completan tests psicométricos en línea y los resultados se envían directamente al WhatsApp de la doctora, agendando una consulta de forma automática.
+Foto del fundador, Napoleon Baca
+
+"Mi pasión es usar la tecnología para construir puentes directos entre un negocio y sus clientes. Traduzco tus objetivos comerciales en plataformas digitales que no solo funcionan, sino que venden."
+
+— Napoleon Baca
+Hagamos Realidad Tu Proyecto
+
+Completa los siguientes pasos para agendar una consulta estratégica gratuita y sin compromiso.
+¿Cuál es tu presupuesto?
+¿Qué servicio te interesa más?
+¡Casi listos!
+Tu Nombre
+Tu Mejor Email
+
+© 2025 Synta Studio. Todos los derechos reservados.
+
+[plugin:vite:import-analysis] Failed to resolve import "./assets/eva.webp" from "src/App.tsx". Does the file exist?
+
+C:/Users/Napoleon/Desktop/Synta New Studio/synta-studio-new/src/App.tsx:2:21
+
+2  |  var _s = $RefreshSig$(), _s2 = $RefreshSig$(), _s3 = $RefreshSig$(), _s4 = $RefreshSig$(), _s5 = $RefreshSig$(), _s6 ...
+3  |  import React, { useState, useEffect, useRef, useCallback } from "react";
+4  |  import evaImage from "./assets/eva.webp";
+   |                        ^
+5  |  import voiceAcademyImage from "./assets/voiceacademy1.webp";
+6  |  const ASSETS = {
+
+    at TransformPluginContext._formatLog (file:///C:/Users/Napoleon/Desktop/Synta%20New%20Studio/synta-studio-new/node_modules/vite/dist/node/chunks/dep-M_KD0XSK.js:31527:43)
+    at TransformPluginContext.error (file:///C:/Users/Napoleon/Desktop/Synta%20New%20Studio/synta-studio-new/node_modules/vite/dist/node/chunks/dep-M_KD0XSK.js:31524:14)
+    at normalizeUrl (file:///C:/Users/Napoleon/Desktop/Synta%20New%20Studio/synta-studio-new/node_modules/vite/dist/node/chunks/dep-M_KD0XSK.js:29996:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Napoleon/Desktop/Synta%20New%20Studio/synta-studio-new/node_modules/vite/dist/node/chunks/dep-M_KD0XSK.js:30054:32
+    at async Promise.all (index 2)
+    at async TransformPluginContext.transform (file:///C:/Users/Napoleon/Desktop/Synta%20New%20Studio/synta-studio-new/node_modules/vite/dist/node/chunks/dep-M_KD0XSK.js:30022:4)
+    at async EnvironmentPluginContainer.transform (file:///C:/Users/Napoleon/Desktop/Synta%20New%20Studio/synta-studio-new/node_modules/vite/dist/node/chunks/dep-M_KD0XSK.js:31325:14)
+    at async loadAndTransform (file:///C:/Users/Napoleon/Desktop/Synta%20New%20Studio/synta-studio-new/node_modules/vite/dist/node/chunks/dep-M_KD0XSK.js:26407:26)
+    at async viteTransformMiddleware (file:///C:/Users/Napoleon/Desktop/Synta%20New%20Studio/synta-studio-new/node_modules/vite/dist/node/chunks/dep-M_KD0XSK.js:27492:20)
+
+Click outside, press Esc key, or fix the code to dismiss.
+You can also disable this overlay by setting server.hmr.overlay to false in vite.config.ts.
