@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useCallback, type FC, type ReactNode, type Dispatch, type SetStateAction } from 'react';
+import { useState, useEffect, useRef, useCallback, type FC, type ReactNode } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import evaImage from './assets/eva.webp';
 import voiceAcademyImage from './assets/voiceacademy1.webp';
 
@@ -11,6 +12,7 @@ interface ASSETS_TYPE {
 interface ScrollRevealProps {
     children: ReactNode;
     delay?: number;
+    className?: string;
 }
 
 interface ServiceCardProps {
@@ -37,6 +39,8 @@ interface FloatingLabelInputProps {
 interface OptionButtonProps {
     group: 'budget' | 'service';
     value: string;
+    onClick: (group: 'budget' | 'service', value: string) => void;
+    isSelected: boolean;
 }
 
 interface FormData {
@@ -53,7 +57,7 @@ interface Message {
 
 // --- Assets Optimizados y Generalizados ---
 const ASSETS: ASSETS_TYPE = {
-    logoMask: 'https://i.imgur.com/vgnuj55.png', // Mantenemos este por la máscara CSS
+    logoMask: 'https://i.imgur.com/vgnuj55.png',
     founderPhoto: 'https://i.imgur.com/kDRy846.png',
 };
 
@@ -83,32 +87,6 @@ const CubeIcon: FC = () => (
 );
 
 // --- Hooks Personalizados ---
-const useIntersectionObserver = (options: IntersectionObserverInit): [Dispatch<SetStateAction<Element | null>>, IntersectionObserverEntry | null] => {
-    const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
-    const [node, setNode] = useState<Element | null>(null);
-    const observer = useRef<IntersectionObserver | null>(null);
-
-    useEffect(() => {
-        if (observer.current) observer.current.disconnect();
-
-        observer.current = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                setEntry(entry);
-                if(observer.current) {
-                    observer.current.unobserve(entry.target);
-                }
-            }
-        }, options);
-
-        const { current: currentObserver } = observer;
-        if (node) currentObserver.observe(node);
-
-        return () => currentObserver.disconnect();
-    }, [node, options]);
-
-    return [setNode, entry];
-};
-
 const useSmoothScroll = () => {
     const smoothScrollTo = useCallback((selector: string) => {
         const element = document.querySelector(selector);
@@ -122,18 +100,21 @@ const useSmoothScroll = () => {
 };
 
 // --- Componentes de UI y Layout ---
-const ScrollReveal: FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
-    const [ref, entry] = useIntersectionObserver({ threshold: 0.1 });
-    const isVisible = !!entry;
-
+const ScrollReveal: FC<ScrollRevealProps> = ({ children, delay = 0, className }) => {
     return (
-        <div 
-            ref={ref}
-            className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-            style={{ transitionDelay: `${delay}ms` }}
+        <motion.div
+            className={className}
+            variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay }}
         >
             {children}
-        </div>
+        </motion.div>
     );
 };
 
@@ -146,8 +127,13 @@ const Header: FC = () => {
     }
     
     return (
-        <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl">
-            <nav className="bg-black/40 backdrop-blur-lg border border-white/20 rounded-full px-6 py-3 flex justify-between items-center shadow-lg shadow-black/30">
+        <motion.header 
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5, ease: 'easeOut' }}
+            className="fixed top-6 left-0 right-0 z-50"
+        >
+            <nav className="w-[90%] max-w-4xl mx-auto bg-black/40 backdrop-blur-lg border border-white/20 rounded-full px-6 py-3 flex justify-between items-center shadow-lg shadow-black/30">
                 <a href="#" onClick={(e) => handleNavClick(e, '#hero')} className="flex items-center gap-x-2 text-2xl font-bold text-white">
                     <div 
                         className="h-8 w-8 flex-shrink-0"
@@ -175,7 +161,7 @@ const Header: FC = () => {
                     </a>
                 </div>
             </nav>
-        </header>
+        </motion.header>
     );
 };
 
@@ -274,6 +260,46 @@ const Footer: FC = () => (
 // --- Componentes de Secciones de la Página ---
 const Hero: FC = () => {
     const smoothScrollTo = useSmoothScroll();
+    const heroTitle = "Soluciones E-Commerce para Productos y Servicios Especializados";
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                delayChildren: 0.5, // Delay the start of the first child
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" }
+        },
+    };
+    
+    const titleVariants = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.08,
+            },
+        },
+    };
+
+    const wordVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        },
+    };
+
     return (
         <section 
             id="hero"
@@ -292,28 +318,43 @@ const Hero: FC = () => {
             <HeroCanvas />
 
             <div className="relative z-10 container mx-auto px-6">
-                <div className="max-w-4xl mx-auto bg-black/40 backdrop-blur-lg border border-white/20 rounded-2xl p-8 md:p-12 shadow-lg shadow-black/30">
-                    <ScrollReveal>
-                        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 text-white tracking-tightest" style={{ textShadow: '0px 0px 20px rgba(0,0,0,0.5)' }}>
-                            Soluciones E-Commerce para Productos y Servicios Especializados
-                        </h1>
-                    </ScrollReveal>
-                    <ScrollReveal delay={150}>
-                        <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-[#A3A3A3] font-light">
-                            Transformamos procesos de venta complejos en experiencias de usuario fluidas, permitiendo la venta de servicios y productos de alto valor directamente en línea.
-                        </p>
-                    </ScrollReveal>
-                    <ScrollReveal delay={300}>
-                        <div className="flex flex-wrap justify-center gap-4">
-                            <button onClick={() => smoothScrollTo('#contact')} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 transition-all duration-500 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] active:scale-95 bg-[length:200%_auto] hover:bg-[right_center]">
-                                Agendar una Consulta
-                            </button>
-                            <button onClick={() => smoothScrollTo('#portfolio')} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-white/5 hover:bg-white/10 border border-[#222222] hover:border-pink-400/50 transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] active:scale-95">
-                                Ver Proyectos
-                            </button>
-                        </div>
-                    </ScrollReveal>
-                </div>
+                <motion.div 
+                    className="max-w-4xl mx-auto bg-black/40 backdrop-blur-lg border border-white/20 rounded-2xl p-8 md:p-12 shadow-lg shadow-black/30"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    <motion.h1 
+                        className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 text-white tracking-tightest"
+                        style={{ textShadow: '0px 0px 20px rgba(0,0,0,0.5)' }}
+                        variants={titleVariants}
+                    >
+                        {heroTitle.split(" ").map((word, wordIndex) => (
+                            <motion.span key={`word-${wordIndex}`} variants={wordVariants} className="inline-block mr-4">
+                                {word}
+                            </motion.span>
+                        ))}
+                    </motion.h1>
+                    
+                    <motion.p 
+                        className="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-[#A3A3A3] font-light"
+                        variants={itemVariants}
+                    >
+                        Transformamos procesos de venta complejos en experiencias de usuario fluidas, permitiendo la venta de servicios y productos de alto valor directamente en línea.
+                    </motion.p>
+                    
+                    <motion.div 
+                        className="flex flex-wrap justify-center gap-4"
+                        variants={itemVariants}
+                    >
+                        <button onClick={() => smoothScrollTo('#contact')} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 transition-all duration-500 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] active:scale-95 bg-[length:200%_auto] hover:bg-[right_center]">
+                            Agendar una Consulta
+                        </button>
+                        <button onClick={() => smoothScrollTo('#portfolio')} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-white/5 hover:bg-white/10 border border-[#222222] hover:border-pink-400/50 transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] active:scale-95">
+                            Ver Proyectos
+                        </button>
+                    </motion.div>
+                </motion.div>
             </div>
             <div aria-hidden="true" className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-black to-transparent z-20"></div>
         </section>
@@ -330,47 +371,68 @@ const ServiceCard: FC<ServiceCardProps> = ({ icon, title, children }) => (
     </div>
 );
 
-const Services: FC = () => (
-    <section id="services" className="py-20 lg:py-24 relative z-10 bg-[#000000] border-t border-b border-[#222222]">
-        <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-                <ScrollReveal>
-                    <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Soluciones para Crecer Tu Negocio</h2>
-                </ScrollReveal>
-                <ScrollReveal delay={150}>
-                    <p className="text-lg mt-4 max-w-2xl mx-auto text-[#A3A3A3] font-light">Tecnología enfocada en resultados comerciales tangibles.</p>
-                </ScrollReveal>
+const Services: FC = () => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+    };
+
+    const services = [
+        { title: "Plataformas E-Commerce", icon: <CodeBracketIcon />, content: "Tiendas online y sistemas de venta a medida con pasarelas de pago seguras e inventario sincronizado." },
+        { title: "Automatización con IA", icon: <CpuChipIcon />, content: "Asistentes virtuales que guían a tus clientes, califican leads y automatizan tareas repetitivas 24/7." },
+        { title: "Diseño Centrado en Conversión", icon: <SwatchIcon />, content: "Interfaces diseñadas no solo para ser atractivas, sino para guiar al usuario hacia la compra o el contacto." },
+        { title: "Herramientas de Gestión", icon: <CubeIcon />, content: "Software interno para administrar clientes (CRM), reservas o inventario de forma centralizada y eficiente." }
+    ];
+
+    return (
+        <section id="services" className="py-20 lg:py-24 relative z-10 bg-[#000000] border-t border-b border-[#222222]">
+            <div className="container mx-auto px-6">
+                <div className="text-center mb-16">
+                    <ScrollReveal>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Soluciones para Crecer Tu Negocio</h2>
+                    </ScrollReveal>
+                    <ScrollReveal delay={0.15}>
+                        <p className="text-lg mt-4 max-w-2xl mx-auto text-[#A3A3A3] font-light">Tecnología enfocada en resultados comerciales tangibles.</p>
+                    </ScrollReveal>
+                </div>
+                <motion.div 
+                    className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
+                    {services.map((service, i) => (
+                        <motion.div key={i} variants={itemVariants}>
+                            <ServiceCard title={service.title} icon={service.icon}>
+                                {service.content}
+                            </ServiceCard>
+                        </motion.div>
+                    ))}
+                </motion.div>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <ScrollReveal delay={0}>
-                    <ServiceCard title="Plataformas E-Commerce" icon={<CodeBracketIcon />}>
-                        Tiendas online y sistemas de venta a medida con pasarelas de pago seguras e inventario sincronizado.
-                    </ServiceCard>
-                </ScrollReveal>
-                <ScrollReveal delay={150}>
-                    <ServiceCard title="Automatización con IA" icon={<CpuChipIcon />}>
-                        Asistentes virtuales que guían a tus clientes, califican leads y automatizan tareas repetitivas 24/7.
-                    </ServiceCard>
-                </ScrollReveal>
-                <ScrollReveal delay={300}>
-                    <ServiceCard title="Diseño Centrado en Conversión" icon={<SwatchIcon />}>
-                        Interfaces diseñadas no solo para ser atractivas, sino para guiar al usuario hacia la compra o el contacto.
-                    </ServiceCard>
-                </ScrollReveal>
-                <ScrollReveal delay={450}>
-                    <ServiceCard title="Herramientas de Gestión" icon={<CubeIcon />}>
-                        Software interno para administrar clientes (CRM), reservas o inventario de forma centralizada y eficiente.
-                    </ServiceCard>
-                </ScrollReveal>
-            </div>
-        </div>
-    </section>
-);
+        </section>
+    );
+};
 
 const ProjectCard: FC<ProjectCardProps> = ({ imgSrc, title, href, children }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="block h-full bg-[#111111] border border-[#222222] rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:border-purple-500/50 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] flex flex-col group">
         <div className="overflow-hidden">
-            <img src={imgSrc} alt={`${title} Project`} className="w-full h-64 object-cover flex-shrink-0 transition-transform duration-500 ease-in-out group-hover:scale-105" />
+            <motion.img 
+                src={imgSrc} 
+                alt={`${title} Project`} 
+                className="w-full h-64 object-cover flex-shrink-0" 
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+            />
         </div>
         <div className="p-8 flex flex-col flex-grow">
             <h3 className="text-2xl font-bold mb-3 text-white">{title}</h3>
@@ -379,40 +441,61 @@ const ProjectCard: FC<ProjectCardProps> = ({ imgSrc, title, href, children }) =>
     </a>
 );
 
-const Portfolio: FC = () => (
-    <section id="portfolio" className="py-20 lg:py-24 relative z-10 bg-[#0a0a0a]">
-        <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-                <ScrollReveal>
-                    <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Casos de Éxito</h2>
-                </ScrollReveal>
-                <ScrollReveal delay={150}>
-                    <p className="text-lg mt-4 max-w-2xl mx-auto text-[#A3A3A3] font-light">Resultados reales para clientes con necesidades únicas.</p>
-                </ScrollReveal>
+const Portfolio: FC = () => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.2, delayChildren: 0.2 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+    };
+
+    return (
+        <section id="portfolio" className="py-20 lg:py-24 relative z-10 bg-[#0a0a0a]">
+            <div className="container mx-auto px-6">
+                <div className="text-center mb-16">
+                    <ScrollReveal>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Casos de Éxito</h2>
+                    </ScrollReveal>
+                    <ScrollReveal delay={0.15}>
+                        <p className="text-lg mt-4 max-w-2xl mx-auto text-[#A3A3A3] font-light">Resultados reales para clientes con necesidades únicas.</p>
+                    </ScrollReveal>
+                </div>
+                <motion.div 
+                    className="grid md:grid-cols-2 gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
+                    <motion.div variants={itemVariants}>
+                        <ProjectCard
+                            imgSrc={voiceAcademyImage}
+                            title="Voice Academy"
+                            href="https://voiceacademy-temporal.netlify.app/"
+                        >
+                            Plataforma de e-commerce para la venta de cursos online de doblaje profesional. Facilita la compra y acceso a contenido formativo para actores de voz.
+                        </ProjectCard>
+                    </motion.div>
+                    <motion.div variants={itemVariants}>
+                        <ProjectCard
+                            imgSrc={evaImage}
+                            title="Plataforma Psiquiátrica Dra. Guevara"
+                            href="https://draevaguevara.com"
+                        >
+                           Creamos una plataforma digital para una reconocida psiquiatra, automatizando la captación de pacientes. Los usuarios completan tests psicométricos en línea y los resultados se envían directamente al WhatsApp de la doctora, agendando una consulta de forma automática.
+                        </ProjectCard>
+                    </motion.div>
+                </motion.div>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
-                <ScrollReveal delay={0}>
-                    <ProjectCard
-                        imgSrc={voiceAcademyImage}
-                        title="Voice Academy"
-                        href="https://voiceacademy-temporal.netlify.app/"
-                    >
-                        Plataforma de e-commerce para la venta de cursos online de doblaje profesional. Facilita la compra y acceso a contenido formativo para actores de voz.
-                    </ProjectCard>
-                </ScrollReveal>
-                <ScrollReveal delay={150}>
-                    <ProjectCard
-                        imgSrc={evaImage}
-                        title="Plataforma Psiquiátrica Dra. Guevara"
-                        href="https://draevaguevara.com"
-                    >
-                       Creamos una plataforma digital para una reconocida psiquiatra, automatizando la captación de pacientes. Los usuarios completan tests psicométricos en línea y los resultados se envían directamente al WhatsApp de la doctora, agendando una consulta de forma automática.
-                    </ProjectCard>
-                </ScrollReveal>
-            </div>
-        </div>
-    </section>
-);
+        </section>
+    );
+};
 
 const About: FC = () => (
     <section id="about" className="py-20 lg:py-24 relative z-10 bg-[#000000]">
@@ -420,7 +503,15 @@ const About: FC = () => (
             <ScrollReveal>
                 <div className="bg-[#111111] border border-[#222222] rounded-lg p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     <div className="flex-shrink-0">
-                        <img src={ASSETS.founderPhoto} alt="Foto del fundador, Napoleon Baca" className="rounded-full w-40 h-40 md:w-48 md:h-48 object-cover border-4 border-[#222222]" />
+                        <motion.img 
+                            src={ASSETS.founderPhoto} 
+                            alt="Foto del fundador, Napoleon Baca" 
+                            className="rounded-full w-40 h-40 md:w-48 md:h-48 object-cover border-4 border-[#222222]"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            whileInView={{ scale: 1, opacity: 1 }}
+                            viewport={{ once: true, amount: 0.5 }}
+                            transition={{ duration: 0.6, ease: 'easeOut' }}
+                        />
                     </div>
                     <div className="text-center md:text-left">
                         <p className="text-xl md:text-2xl text-[#A3A3A3] font-light" style={{ lineHeight: 1.6 }}>
@@ -441,14 +532,33 @@ const About: FC = () => (
     </section>
 );
 
+interface ProgressBarProps {
+    currentStep: number;
+    totalSteps: number;
+}
+
+const ProgressBar: FC<ProgressBarProps> = ({ currentStep, totalSteps }) => (
+    <div className="w-full">
+        <div className="relative w-full h-1 bg-[#222222] rounded-full mb-8">
+            <motion.div 
+                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 rounded-full"
+                animate={{ width: `${((currentStep - 1) / (totalSteps - 1)) * 100}%` }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+            />
+        </div>
+    </div>
+);
+
 const ContactForm: FC = () => {
     const [currentStep, setCurrentStep] = useState(1);
+    const [direction, setDirection] = useState(0);
     const [formData, setFormData] = useState<FormData>({ budget: '', service: '', name: '', email: '' });
     const [message, setMessage] = useState<Message | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const totalSteps = 3;
 
     const handleOptionSelect = (group: 'budget' | 'service', value: string) => {
+        setDirection(1);
         setFormData(prev => ({ ...prev, [group]: value }));
         setTimeout(() => {
             if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
@@ -456,6 +566,7 @@ const ContactForm: FC = () => {
     };
 
     const handleBack = () => {
+        setDirection(-1);
         if (currentStep > 1) {
             setCurrentStep(currentStep - 1);
         }
@@ -495,22 +606,26 @@ const ContactForm: FC = () => {
         });
     };
 
-    const ProgressBar: FC = () => (
-        <div className="w-full">
-            <div className="relative w-full h-1 bg-[#222222] rounded-full mb-8">
-                <div 
-                    className="absolute top-0 left-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 rounded-full transition-all duration-500 ease-out"
-                    style={{ width: `${((currentStep - 1) / (totalSteps - 1)) * 100}%` }}
-                ></div>
-            </div>
-        </div>
-    );
+    const formVariants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? '100%' : '-100%',
+            opacity: 0
+        }),
+        center: {
+            x: 0,
+            opacity: 1
+        },
+        exit: (direction: number) => ({
+            x: direction < 0 ? '100%' : '-100%',
+            opacity: 0
+        })
+    };
 
-    const OptionButton: FC<OptionButtonProps> = ({ group, value }) => (
+    const OptionButton: FC<OptionButtonProps> = ({ group, value, onClick, isSelected }) => (
         <button
             type="button"
-            onClick={() => handleOptionSelect(group, value)}
-            className={`p-4 rounded-lg transition-all duration-200 w-full text-white transform active:scale-95 ${formData[group] === value ? 'border-pink-400 bg-pink-500/10 ring-2 ring-pink-400' : 'bg-[#111111] border border-[#222222] hover:border-pink-400/50 hover:bg-[#1a1a1a]'}`}
+            onClick={() => onClick(group, value)}
+            className={`p-4 rounded-lg transition-all duration-200 w-full text-white transform active:scale-95 ${isSelected ? 'border-pink-400 bg-pink-500/10 ring-2 ring-pink-400' : 'bg-[#111111] border border-[#222222] hover:border-pink-400/50 hover:bg-[#1a1a1a]'}`}
         >
             {value}
         </button>
@@ -549,63 +664,90 @@ const ContactForm: FC = () => {
                 }}
             >
                 <form onSubmit={handleSubmit}>
-                    <ProgressBar />
+                    <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
                     <div className="relative overflow-hidden" style={{ minHeight: '220px' }}>
-                        {/* Step 1 */}
-                        <div className={`absolute w-full transition-all duration-500 ease-in-out ${currentStep === 1 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'}`}>
-                            <label className="block text-lg font-semibold mb-4 text-center text-white">¿Cuál es tu presupuesto?</label>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-1">
-                                {[
-                                    '$500 - $1.5k',
-                                    '$1.5k - $4k',
-                                    '$4k - $8k',
-                                    '$8k+'
-                                ].map(val => <OptionButton key={val} group="budget" value={val} />)}
-                            </div>
-                        </div>
-                        {/* Step 2 */}
-                        <div className={`absolute w-full transition-all duration-500 ease-in-out ${currentStep === 2 ? 'opacity-100 translate-x-0' : `opacity-0 ${currentStep > 2 ? '-translate-x-full' : 'translate-x-full'}`}`}>
-                            <label className="block text-lg font-semibold mb-4 text-center text-white">¿Qué servicio te interesa más?</label>
-                            <div className="grid grid-cols-2 gap-4 px-1">
-                                {[
-                                    'Plataforma E-Commerce',
-                                    'Automatización con IA',
-                                    'Diseño y Conversión',
-                                    'Software de Gestión'
-                                ].map(val => <OptionButton key={val} group="service" value={val} />)}
-                            </div>
-                        </div>
-                        {/* Step 3 */}
-                        <div className={`absolute w-full transition-all duration-500 ease-in-out ${currentStep === 3 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}>
-                            <label className="block text-lg font-semibold mb-4 text-center text-white">¡Casi listos!</label>
-                            <div className="space-y-6 px-1">
-                                <FloatingLabelInput id="name" type="text" placeholder="Tu Nombre" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
-                                <FloatingLabelInput id="email" type="email" placeholder="Tu Mejor Email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
-                            </div>
-                        </div>
+                        <AnimatePresence initial={false} custom={direction} mode="wait">
+                            <motion.div
+                                key={currentStep}
+                                custom={direction}
+                                variants={formVariants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                                className="absolute w-full"
+                            >
+                                {currentStep === 1 && (
+                                    <div>
+                                        <label className="block text-lg font-semibold mb-4 text-center text-white">¿Cuál es tu presupuesto?</label>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-1">
+                                            {[
+                                                '$500 - $1.5k',
+                                                '$1.5k - $4k',
+                                                '$4k - $8k',
+                                                '$8k+'
+                                            ].map(val => <OptionButton key={val} group="budget" value={val} onClick={handleOptionSelect} isSelected={formData.budget === val} />)}
+                                        </div>
+                                    </div>
+                                )}
+                                {currentStep === 2 && (
+                                    <div>
+                                        <label className="block text-lg font-semibold mb-4 text-center text-white">¿Qué servicio te interesa más?</label>
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            {[
+                                                'Plataforma E-Commerce',
+                                                'Automatización con IA',
+                                                'Diseño y Conversión',
+                                                'Software de Gestión'
+                                            ].map(val => <OptionButton key={val} group="service" value={val} onClick={handleOptionSelect} isSelected={formData.service === val} />)}
+                                        </div>
+                                    </div>
+                                )}
+                                {currentStep === 3 && (
+                                    <div>
+                                        <label className="block text-lg font-semibold mb-4 text-center text-white">¡Casi listos!</label>
+                                        <div className="space-y-6 px-1">
+                                            <FloatingLabelInput id="name" type="text" placeholder="Tu Nombre" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
+                                            <FloatingLabelInput id="email" type="email" placeholder="Tu Mejor Email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
+                                        </div>
+                                    </div>
+                                )}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
 
                     <div className="mt-8 flex items-center h-14">
-                        <div className={`transition-opacity duration-300 ${currentStep > 1 ? 'opacity-100' : 'opacity-0'}`}>
+                        <AnimatePresence>
                             {currentStep > 1 && (
-                                <button
+                                <motion.button
                                     type="button"
                                     onClick={handleBack}
                                     className="text-gray-400 hover:text-white font-semibold py-2 px-3 rounded-lg transition-colors duration-300 flex items-center gap-x-1"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    transition={{ duration: 0.3 }}
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                                     Atrás
-                                </button>
+                                </motion.button>
                             )}
-                        </div>
+                        </AnimatePresence>
                         <div className="flex-grow" />
-                        <div className={`transition-opacity duration-300 ${currentStep === totalSteps ? 'opacity-100' : 'opacity-0'}`}>
+                        <AnimatePresence>
                             {currentStep === totalSteps && (
-                                <button type="submit" disabled={isSubmitting} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 transition-all duration-500 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none bg-[length:200%_auto] hover:bg-[right_center]">
+                                <motion.button 
+                                    type="submit" 
+                                    disabled={isSubmitting} 
+                                    className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 transition-all duration-500 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none bg-[length:200%_auto] hover:bg-[right_center]"
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.8 }}
+                                >
                                     {isSubmitting ? 'Enviando...' : 'Enviar Solicitud'}
-                                </button>
+                                </motion.button>
                             )}
-                        </div>
+                        </AnimatePresence>
                     </div>
                 </form>
                 {message && <div className={`mt-2 text-center text-sm transition-opacity duration-300 ${message && message.text ? 'opacity-100' : 'opacity-0'} ${message && message.type === 'error' ? 'text-red-400' : 'text-green-400'}`}>{message.text}</div>}
@@ -621,7 +763,7 @@ const Contact: FC = () => (
                 <ScrollReveal>
                     <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Hagamos Realidad Tu Proyecto</h2>
                 </ScrollReveal>
-                <ScrollReveal delay={150}>
+                <ScrollReveal delay={0.15}>
                     <p className="text-lg mt-4 max-w-2xl mx-auto text-[#A3A3A3] font-light">Completa los siguientes pasos para agendar una consulta estratégica gratuita y sin compromiso.</p>
                 </ScrollReveal>
             </div>
