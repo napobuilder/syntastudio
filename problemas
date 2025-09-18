@@ -1,226 +1,89 @@
-
-Skip to main content
-
-
-W
-Switch teams
-Projects
-Builds
-Extensions
-Domains
-Members
-Audit log
-Security Scorecard
-Usage & billing
-Team settings
-Visual editor dashboard
-Upgrade
-
-
-Projects
-syntastudio.com
-Switch projects
-
-News
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Support
-Project navigation
-Project overview
-Project configuration
-Deploys
-Preview Servers
-Logs
-Metrics
-Domain management
-Forms
-Blobs
-Extensions
-Neon
-Deploy detailsYour deploy failed due to an error
-Deploy failed for syntastudio
-A failure prevented us from deploying your project.
-Why did it fail?
-FIX: Refactor App.tsx to be TypeScript compliant
-Today at 8:39 PM, by napobuildernapobuilder on GitHub
-
-Production: master@8c7d7e5
-
-Functions
-Retry
-Deploy settings
-Delete deploy
-Deploy log
-Why did it fail?
-
-
-
-
-Maximize log
-Initializing
-Complete
-Building
-Failed
-8:39:21 PM: Netlify Build                                                 
-8:39:21 PM: ────────────────────────────────────────────────────────────────
-8:39:21 PM: ​
-8:39:21 PM: ❯ Version
-8:39:21 PM:   @netlify/build 35.1.6
-8:39:21 PM: ​
-8:39:21 PM: ❯ Flags
-8:39:21 PM:   accountId: 6861d4f64a386cd9d7ac82e0
-8:39:21 PM:   baseRelDir: true
-8:39:21 PM:   buildId: 68cb54a9ab3ccc0008c3cb8b
-8:39:21 PM:   deployId: 68cb54a9ab3ccc0008c3cb8d
-8:39:21 PM: ​
-8:39:21 PM: ❯ Current directory
-8:39:21 PM:   /opt/build/repo
-8:39:21 PM: ​
-8:39:21 PM: ❯ Config file
-8:39:21 PM:   No config file was defined: using default values.
-8:39:21 PM: ​
-8:39:21 PM: ❯ Context
-8:39:21 PM:   production
-8:39:21 PM: ​
-8:39:21 PM: ❯ Installing extensions
-8:39:21 PM:    - neon
-8:39:47 PM: ​
-8:39:47 PM: ❯ Loading extensions
-8:39:47 PM:    - neon
-8:39:48 PM: ​
-8:39:48 PM: Build command from Netlify app                                
-8:39:48 PM: ────────────────────────────────────────────────────────────────
-8:39:48 PM: ​
-8:39:48 PM: $ npm run build
-8:39:48 PM: > synta-studio-new@0.0.0 build
-8:39:48 PM: > tsc -b && vite build
-8:39:49 PM: src/App.tsx(1,52): error TS1484: 'FC' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
-8:39:49 PM: src/App.tsx(1,56): error TS1484: 'ReactNode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
-8:39:49 PM: src/App.tsx(1,67): error TS1484: 'Dispatch' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
-8:39:49 PM: src/App.tsx(1,77): error TS1484: 'SetStateAction' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
-8:39:49 PM: src/App.tsx(131,18): error TS2352: Conversion of type 'Dispatch<SetStateAction<Element | null>>' to type 'RefObject<HTMLDivElement>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
-8:39:49 PM: src/App.tsx(223,17): error TS18047: 'ctx' is possibly 'null'.
-8:39:49 PM: src/App.tsx(224,17): error TS18047: 'ctx' is possibly 'null'.
-8:39:49 PM: src/App.tsx(225,17): error TS18047: 'ctx' is possibly 'null'.
-8:39:49 PM: src/App.tsx(226,17): error TS18047: 'ctx' is possibly 'null'.
-8:39:49 PM: src/App.tsx(227,17): error TS18047: 'ctx' is possibly 'null'.
-8:39:49 PM: ​
-8:39:49 PM: "build.command" failed                                        
-8:39:49 PM: ────────────────────────────────────────────────────────────────
-8:39:49 PM: ​
-8:39:49 PM:   Error message
-8:39:49 PM:   Command failed with exit code 2: npm run build (https://ntl.fyi/exit-code-2)
-8:39:49 PM: ​
-8:39:49 PM:   Error location
-8:39:49 PM:   In Build command from Netlify app:
-8:39:49 PM:   npm run build
-8:39:49 PM: ​
-8:39:49 PM:   Resolved config
-8:39:49 PM:   build:
-8:39:49 PM:     command: npm run build
-8:39:49 PM:     commandOrigin: ui
-8:39:49 PM:     environment:
-8:39:49 PM:       - SENDGRID_API_KEY
-8:39:49 PM:     publish: /opt/build/repo/dist
-8:39:49 PM:     publishOrigin: ui
-8:39:50 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
-8:39:50 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
-8:39:50 PM: Failing build: Failed to build site
-8:39:50 PM: Finished processing build request in 43.163s
-Deploying
-Skipped
-Cleanup
-Skipped
-Post-processing
-Skipped
-Docs
-Pricing
-Support
-Blog
-Changelog
-Terms
-© 2025 Netlify
-
+9:55:16 AM: Netlify Build                                                 
+9:55:16 AM: ────────────────────────────────────────────────────────────────
+9:55:16 AM: ​
+9:55:16 AM: ❯ Version
+9:55:16 AM:   @netlify/build 35.1.6
+9:55:16 AM: ​
+9:55:16 AM: ❯ Flags
+9:55:16 AM:   accountId: 6861d4f64a386cd9d7ac82e0
+9:55:16 AM:   baseRelDir: true
+9:55:16 AM:   buildId: 68cc0f34d60f0c000839b88a
+9:55:16 AM:   deployId: 68cc0f34d60f0c000839b88c
+9:55:16 AM: ​
+9:55:16 AM: ❯ Current directory
+9:55:16 AM:   /opt/build/repo
+9:55:16 AM: ​
+9:55:16 AM: ❯ Config file
+9:55:16 AM:   No config file was defined: using default values.
+9:55:16 AM: ​
+9:55:16 AM: ❯ Context
+9:55:16 AM:   production
+9:55:16 AM: ​
+9:55:16 AM: ❯ Installing extensions
+9:55:16 AM:    - neon
+9:55:17 AM: ​
+9:55:17 AM: ❯ Loading extensions
+9:55:17 AM:    - neon
+9:55:18 AM: ​
+9:55:18 AM: Build command from Netlify app                                
+9:55:18 AM: ────────────────────────────────────────────────────────────────
+9:55:18 AM: ​
+9:55:18 AM: $ npm run build
+9:55:18 AM: > synta-studio-new@0.0.0 build
+9:55:18 AM: > tsc -b && vite build
+9:55:19 AM: src/App.tsx(333,68): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+9:55:19 AM:   Property 'visible' is incompatible with index signature.
+9:55:19 AM:     Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+9:55:19 AM:       Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+9:55:19 AM:         Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues | undefined; }'.
+9:55:19 AM:           Types of property 'transition' are incompatible.
+9:55:19 AM:             Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any> | undefined'.
+9:55:19 AM:               Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+9:55:19 AM:                 Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+9:55:19 AM:                   Types of property 'ease' are incompatible.
+9:55:19 AM:                     Type 'string' is not assignable to type 'Easing | Easing[] | undefined'.
+9:55:19 AM: src/App.tsx(341,25): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+9:55:19 AM:   Property 'visible' is incompatible with index signature.
+9:55:19 AM:     Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+9:55:19 AM:       Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+9:55:19 AM:         Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues | undefined; }'.
+9:55:19 AM:           Types of property 'transition' are incompatible.
+9:55:19 AM:             Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any> | undefined'.
+9:55:19 AM:               Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+9:55:19 AM:                 Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+9:55:19 AM:                   Types of property 'ease' are incompatible.
+9:55:19 AM:                     Type 'string' is not assignable to type 'Easing | Easing[] | undefined'.
+9:55:19 AM: src/App.tsx(348,25): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+9:55:19 AM:   Property 'visible' is incompatible with index signature.
+9:55:19 AM:     Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+9:55:19 AM:       Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+9:55:19 AM:         Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues | undefined; }'.
+9:55:19 AM:           Types of property 'transition' are incompatible.
+9:55:19 AM:             Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any> | undefined'.
+9:55:19 AM:               Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+9:55:19 AM:                 Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+9:55:19 AM:                   Types of property 'ease' are incompatible.
+9:55:19 AM:                     Type 'string' is not assignable to type 'Easing | Easing[] | undefined'.
+9:55:20 AM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+9:55:20 AM: ​
+9:55:20 AM: "build.command" failed                                        
+9:55:20 AM: ────────────────────────────────────────────────────────────────
+9:55:20 AM: ​
+9:55:20 AM:   Error message
+9:55:20 AM:   Command failed with exit code 2: npm run build (https://ntl.fyi/exit-code-2)
+9:55:20 AM: ​
+9:55:20 AM:   Error location
+9:55:20 AM:   In Build command from Netlify app:
+9:55:20 AM:   npm run build
+9:55:20 AM: ​
+9:55:20 AM:   Resolved config
+9:55:20 AM:   build:
+9:55:20 AM:     command: npm run build
+9:55:20 AM:     commandOrigin: ui
+9:55:20 AM:     environment:
+9:55:20 AM:       - SENDGRID_API_KEY
+9:55:20 AM:     publish: /opt/build/repo/dist
+9:55:20 AM:     publishOrigin: ui
+9:55:20 AM: Build failed due to a user error: Build script returned non-zero exit code: 2
+9:55:20 AM: Failing build: Failed to build site
+9:55:21 AM: Finished processing build request in 19.13s

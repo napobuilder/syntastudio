@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, type FC, type ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import evaImage from './assets/eva.webp';
 import voiceAcademyImage from './assets/voiceacademy1.webp';
 
@@ -262,7 +262,7 @@ const Hero: FC = () => {
     const smoothScrollTo = useSmoothScroll();
     const heroTitle = "Soluciones E-Commerce para Productos y Servicios Especializados";
 
-    const containerVariants = {
+    const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -273,7 +273,7 @@ const Hero: FC = () => {
         },
     };
 
-    const itemVariants = {
+    const itemVariants: Variants = {
         hidden: { opacity: 0, y: 20 },
         visible: { 
             opacity: 1, 
@@ -282,7 +282,7 @@ const Hero: FC = () => {
         },
     };
     
-    const titleVariants = {
+    const titleVariants: Variants = {
         hidden: {},
         visible: {
             transition: {
@@ -291,7 +291,7 @@ const Hero: FC = () => {
         },
     };
 
-    const wordVariants = {
+    const wordVariants: Variants = {
         hidden: { opacity: 0, y: 20 },
         visible: { 
             opacity: 1, 
