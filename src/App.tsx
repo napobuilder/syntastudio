@@ -1,46 +1,92 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, FC, ReactNode, Dispatch, SetStateAction } from 'react';
 import evaImage from './assets/eva.webp';
 import voiceAcademyImage from './assets/voiceacademy1.webp';
 
+// --- Tipos y Interfaces ---
+interface ASSETS_TYPE {
+    logoMask: string;
+    founderPhoto: string;
+}
+
+interface ScrollRevealProps {
+    children: ReactNode;
+    delay?: number;
+}
+
+interface ServiceCardProps {
+    icon: ReactNode;
+    title: string;
+    children: ReactNode;
+}
+
+interface ProjectCardProps {
+    imgSrc: string;
+    title: string;
+    href: string;
+    children: ReactNode;
+}
+
+interface FloatingLabelInputProps {
+    id: string;
+    type: string;
+    placeholder: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+interface OptionButtonProps {
+    group: 'budget' | 'service';
+    value: string;
+}
+
+interface FormData {
+    budget: string;
+    service: string;
+    name: string;
+    email: string;
+}
+
+interface Message {
+    type: 'success' | 'error';
+    text: string;
+}
 
 // --- Assets Optimizados y Generalizados ---
-// Usamos placeholders para las imágenes mientras se consiguen las versiones finales.
-// Esta es la mejor práctica para evitar dependencias externas.
-const ASSETS = {
+const ASSETS: ASSETS_TYPE = {
     logoMask: 'https://i.imgur.com/vgnuj55.png', // Mantenemos este por la máscara CSS
     founderPhoto: 'https://i.imgur.com/kDRy846.png',
 };
 
 // --- Iconos ---
-const CodeBracketIcon = () => (
+const CodeBracketIcon: FC = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-4 mx-auto text-[#8B5CF6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
     </svg>
 );
 
-const CpuChipIcon = () => (
+const CpuChipIcon: FC = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-4 mx-auto text-[#8B5CF6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z" />
     </svg>
 );
 
-const SwatchIcon = () => (
+const SwatchIcon: FC = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-4 mx-auto text-[#8B5CF6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.158 0a.079.079 0 01.079-.079h.008a.079.079 0 01.079.079v.008a.079.079 0 01-.079.079h-.008a.079.079 0 01-.079-.079V8.25z" />
     </svg>
 );
 
-const CubeIcon = () => (
+const CubeIcon: FC = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-4 mx-auto text-[#8B5CF6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
     </svg>
 );
 
 // --- Hooks Personalizados ---
-const useIntersectionObserver = (options) => {
-    const [entry, setEntry] = useState(null);
-    const [node, setNode] = useState(null);
-    const observer = useRef(null);
+const useIntersectionObserver = (options: IntersectionObserverInit): [Dispatch<SetStateAction<Element | null>>, IntersectionObserverEntry | null] => {
+    const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
+    const [node, setNode] = useState<Element | null>(null);
+    const observer = useRef<IntersectionObserver | null>(null);
 
     useEffect(() => {
         if (observer.current) observer.current.disconnect();
@@ -48,7 +94,9 @@ const useIntersectionObserver = (options) => {
         observer.current = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) {
                 setEntry(entry);
-                observer.current.unobserve(entry.target);
+                if(observer.current) {
+                    observer.current.unobserve(entry.target);
+                }
             }
         }, options);
 
@@ -62,7 +110,7 @@ const useIntersectionObserver = (options) => {
 };
 
 const useSmoothScroll = () => {
-    const smoothScrollTo = useCallback((selector) => {
+    const smoothScrollTo = useCallback((selector: string) => {
         const element = document.querySelector(selector);
         if (element) {
             element.scrollIntoView({
@@ -74,13 +122,13 @@ const useSmoothScroll = () => {
 };
 
 // --- Componentes de UI y Layout ---
-const ScrollReveal = ({ children, delay = 0 }) => {
+const ScrollReveal: FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
     const [ref, entry] = useIntersectionObserver({ threshold: 0.1 });
     const isVisible = !!entry;
 
     return (
         <div 
-            ref={ref}
+            ref={ref as React.RefObject<HTMLDivElement>}
             className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
             style={{ transitionDelay: `${delay}ms` }}
         >
@@ -89,10 +137,10 @@ const ScrollReveal = ({ children, delay = 0 }) => {
     );
 };
 
-const Header = () => {
+const Header: FC = () => {
     const smoothScrollTo = useSmoothScroll();
 
-    const handleNavClick = (e, selector) => {
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, selector: string) => {
         e.preventDefault();
         smoothScrollTo(selector);
     }
@@ -131,17 +179,28 @@ const Header = () => {
     );
 };
 
-const HeroCanvas = () => {
-    const canvasRef = useRef(null);
+const HeroCanvas: FC = () => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let width, height, particles;
-        let animationFrameId;
+        if (!ctx) return;
+
+        let width = 0;
+        let height = 0;
+        let particles: Particle[] = [];
+        let animationFrameId: number;
 
         class Particle {
+            x: number;
+            y: number;
+            size: number;
+            speedX: number;
+            speedY: number;
+            color: string;
+
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
@@ -171,9 +230,9 @@ const HeroCanvas = () => {
 
         const setup = () => {
             const hero = document.querySelector('#hero');
-            if (!hero) return;
-            width = canvas.width = hero.offsetWidth;
-            height = canvas.height = hero.offsetHeight;
+            if (!hero || !canvas) return;
+            width = canvas.width = (hero as HTMLElement).offsetWidth;
+            height = canvas.height = (hero as HTMLElement).offsetHeight;
             particles = [];
             const particleCount = Math.floor(width / 30);
             for (let i = 0; i < particleCount; i++) {
@@ -204,7 +263,7 @@ const HeroCanvas = () => {
     return <canvas ref={canvasRef} id="hero-canvas" className="absolute top-0 left-0 w-full h-full z-0 opacity-30" style={{ maskImage: 'radial-gradient(ellipse 80% 50% at 50% 50%, black 40%, transparent 70%)' }}></canvas>;
 };
 
-const Footer = () => (
+const Footer: FC = () => (
     <footer className="bg-black border-t border-[#222222] py-8">
         <div className="container mx-auto px-6 text-center text-[#A3A3A3]">
             <p>&copy; {new Date().getFullYear()} Synta Studio. Todos los derechos reservados.</p>
@@ -213,7 +272,7 @@ const Footer = () => (
 );
 
 // --- Componentes de Secciones de la Página ---
-const Hero = () => {
+const Hero: FC = () => {
     const smoothScrollTo = useSmoothScroll();
     return (
         <section 
@@ -261,7 +320,7 @@ const Hero = () => {
     );
 };
 
-const ServiceCard = ({ icon, title, children }) => (
+const ServiceCard: FC<ServiceCardProps> = ({ icon, title, children }) => (
     <div className="h-full bg-[#111111] border border-[#222222] p-8 rounded-lg text-center transition-all duration-300 hover:-translate-y-1.5 hover:border-purple-500/50 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] flex flex-col">
         <div>
             {icon}
@@ -271,7 +330,7 @@ const ServiceCard = ({ icon, title, children }) => (
     </div>
 );
 
-const Services = () => (
+const Services: FC = () => (
     <section id="services" className="py-20 lg:py-24 relative z-10 bg-[#000000] border-t border-b border-[#222222]">
         <div className="container mx-auto px-6">
             <div className="text-center mb-16">
@@ -308,7 +367,7 @@ const Services = () => (
     </section>
 );
 
-const ProjectCard = ({ imgSrc, title, href, children }) => (
+const ProjectCard: FC<ProjectCardProps> = ({ imgSrc, title, href, children }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="block h-full bg-[#111111] border border-[#222222] rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:border-purple-500/50 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] flex flex-col group">
         <div className="overflow-hidden">
             <img src={imgSrc} alt={`${title} Project`} className="w-full h-64 object-cover flex-shrink-0 transition-transform duration-500 ease-in-out group-hover:scale-105" />
@@ -320,7 +379,7 @@ const ProjectCard = ({ imgSrc, title, href, children }) => (
     </a>
 );
 
-const Portfolio = () => (
+const Portfolio: FC = () => (
     <section id="portfolio" className="py-20 lg:py-24 relative z-10 bg-[#0a0a0a]">
         <div className="container mx-auto px-6">
             <div className="text-center mb-16">
@@ -355,7 +414,7 @@ const Portfolio = () => (
     </section>
 );
 
-const About = () => (
+const About: FC = () => (
     <section id="about" className="py-20 lg:py-24 relative z-10 bg-[#000000]">
         <div className="container mx-auto px-6">
             <ScrollReveal>
@@ -382,14 +441,14 @@ const About = () => (
     </section>
 );
 
-const ContactForm = () => {
+const ContactForm: FC = () => {
     const [currentStep, setCurrentStep] = useState(1);
-    const [formData, setFormData] = useState({ budget: '', service: '', name: '', email: '' });
-    const [message, setMessage] = useState('');
+    const [formData, setFormData] = useState<FormData>({ budget: '', service: '', name: '', email: '' });
+    const [message, setMessage] = useState<Message | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const totalSteps = 3;
 
-    const handleOptionSelect = (group, value) => {
+    const handleOptionSelect = (group: 'budget' | 'service', value: string) => {
         setFormData(prev => ({ ...prev, [group]: value }));
         setTimeout(() => {
             if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
@@ -402,7 +461,7 @@ const ContactForm = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!formData.name || !formData.email) {
             setMessage({ type: 'error', text: 'Por favor, completa tu nombre y email.' });
@@ -423,20 +482,20 @@ const ContactForm = () => {
                 setTimeout(() => {
                     setCurrentStep(1);
                     setFormData({ budget: '', service: '', name: '', email: '' });
-                    setMessage('');
+                    setMessage(null);
                     setIsSubmitting(false);
                 }, 4000);
             } else {
                 setMessage({ type: 'error', text: 'Oops! Hubo un problema al enviar tu formulario.' });
                 setIsSubmitting(false);
             }
-        }).catch(error => {
+        }).catch(() => {
             setMessage({ type: 'error', text: 'Oops! Hubo un problema al enviar tu formulario.' });
             setIsSubmitting(false);
         });
     };
 
-    const ProgressBar = () => (
+    const ProgressBar: FC = () => (
         <div className="w-full">
             <div className="relative w-full h-1 bg-[#222222] rounded-full mb-8">
                 <div 
@@ -447,7 +506,7 @@ const ContactForm = () => {
         </div>
     );
 
-    const OptionButton = ({ group, value }) => (
+    const OptionButton: FC<OptionButtonProps> = ({ group, value }) => (
         <button
             type="button"
             onClick={() => handleOptionSelect(group, value)}
@@ -457,7 +516,7 @@ const ContactForm = () => {
         </button>
     );
 
-    const FloatingLabelInput = ({ id, type, placeholder, value, onChange }) => (
+    const FloatingLabelInput: FC<FloatingLabelInputProps> = ({ id, type, placeholder, value, onChange }) => (
         <div className="relative">
             <input
                 id={id}
@@ -549,13 +608,13 @@ const ContactForm = () => {
                         </div>
                     </div>
                 </form>
-                {message && <div className={`mt-2 text-center text-sm transition-opacity duration-300 ${message.text ? 'opacity-100' : 'opacity-0'} ${message.type === 'error' ? 'text-red-400' : 'text-green-400'}`}>{message.text}</div>}
+                {message && <div className={`mt-2 text-center text-sm transition-opacity duration-300 ${message && message.text ? 'opacity-100' : 'opacity-0'} ${message && message.type === 'error' ? 'text-red-400' : 'text-green-400'}`}>{message.text}</div>}
             </div>
         </ScrollReveal>
     );
 };
 
-const Contact = () => (
+const Contact: FC = () => (
     <section id="contact" className="py-20 lg:py-24 relative z-10 bg-[#0a0a0a]">
         <div className="container mx-auto px-6">
             <div className="text-center mb-16">
