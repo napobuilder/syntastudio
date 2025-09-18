@@ -124,9 +124,10 @@ Deploy detailsYour deploy failed due to an error
 Deploy failed for syntastudio
 A failure prevented us from deploying your project.
 Why did it fail?
-Today at 8:33 PM
+FIX: Refactor App.tsx to be TypeScript compliant
+Today at 8:39 PM, by napobuildernapobuilder on GitHub
 
-Production: master@HEAD
+Production: master@8c7d7e5
 
 Functions
 Retry
@@ -143,153 +144,72 @@ Initializing
 Complete
 Building
 Failed
-8:33:44 PM: Netlify Build                                                 
-8:33:44 PM: ────────────────────────────────────────────────────────────────
-8:33:44 PM: ​
-8:33:44 PM: ❯ Version
-8:33:44 PM:   @netlify/build 35.1.6
-8:33:44 PM: ​
-8:33:44 PM: ❯ Flags
-8:33:44 PM:   accountId: 6861d4f64a386cd9d7ac82e0
-8:33:44 PM:   baseRelDir: true
-8:33:44 PM:   buildId: 68cb53603a0abf2a24e79e23
-8:33:44 PM:   deployId: 68cb53603a0abf2a24e79e25
-8:33:45 PM: ​
-8:33:45 PM: ❯ Current directory
-8:33:45 PM:   /opt/build/repo
-8:33:45 PM: ​
-8:33:45 PM: ❯ Config file
-8:33:45 PM:   No config file was defined: using default values.
-8:33:45 PM: ​
-8:33:45 PM: ❯ Context
-8:33:45 PM:   production
-8:33:45 PM: ​
-8:33:45 PM: ❯ Installing extensions
-8:33:45 PM:    - neon
-8:34:08 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
-8:34:05 PM: ​
-8:34:05 PM: ❯ Loading extensions
-8:34:05 PM:    - neon
-8:34:06 PM: ​
-8:34:06 PM: Build command from Netlify app                                
-8:34:06 PM: ────────────────────────────────────────────────────────────────
-8:34:06 PM: ​
-8:34:06 PM: $ npm run build
-8:34:06 PM: > synta-studio-new@0.0.0 build
-8:34:06 PM: > tsc -b && vite build
-8:34:07 PM: src/App.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
-8:34:07 PM: src/App.tsx(40,34): error TS7006: Parameter 'options' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(46,48): error TS2339: Property 'disconnect' does not exist on type 'never'.
-8:34:07 PM: src/App.tsx(48,9): error TS2322: Type 'IntersectionObserver' is not assignable to type 'null'.
-8:34:07 PM: src/App.tsx(50,26): error TS2345: Argument of type 'IntersectionObserverEntry' is not assignable to parameter of type 'SetStateAction<null>'.
-8:34:07 PM:   Type 'IntersectionObserverEntry' provides no match for the signature '(prevState: null): null'.
-8:34:07 PM: src/App.tsx(51,17): error TS18047: 'observer.current' is possibly 'null'.
-8:34:07 PM: src/App.tsx(56,19): error TS18047: 'currentObserver' is possibly 'null'.
-8:34:07 PM: src/App.tsx(58,22): error TS18047: 'currentObserver' is possibly 'null'.
-8:34:07 PM: src/App.tsx(65,41): error TS7006: Parameter 'selector' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(77,25): error TS7031: Binding element 'children' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(83,13): error TS2322: Type 'Dispatch<SetStateAction<null>> | null' is not assignable to type 'Ref<HTMLDivElement> | undefined'.
-8:34:07 PM:   Type 'Dispatch<SetStateAction<null>>' is not assignable to type 'Ref<HTMLDivElement> | undefined'.
-8:34:07 PM:     Type 'Dispatch<SetStateAction<null>>' is not assignable to type '(instance: HTMLDivElement | null) => void | (() => VoidOrUndefinedOnly)'.
-8:34:07 PM:       Types of parameters 'value' and 'instance' are incompatible.
-8:34:07 PM:         Type 'HTMLDivElement | null' is not assignable to type 'SetStateAction<null>'.
-8:34:07 PM:           Type 'HTMLDivElement' is not assignable to type 'SetStateAction<null>'.
-8:34:07 PM:             Type 'HTMLDivElement' provides no match for the signature '(prevState: null): null'.
-8:34:07 PM: src/App.tsx(95,29): error TS7006: Parameter 'e' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(95,32): error TS7006: Parameter 'selector' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(140,28): error TS2339: Property 'getContext' does not exist on type 'never'.
-8:34:07 PM: src/App.tsx(141,13): error TS7034: Variable 'width' implicitly has type 'any' in some locations where its type cannot be determined.
-8:34:07 PM: src/App.tsx(141,20): error TS7034: Variable 'height' implicitly has type 'any' in some locations where its type cannot be determined.
-8:34:07 PM: src/App.tsx(141,28): error TS7034: Variable 'particles' implicitly has type 'any' in some locations where its type cannot be determined.
-8:34:07 PM: src/App.tsx(142,13): error TS7034: Variable 'animationFrameId' implicitly has type 'any' in some locations where its type cannot be determined.
-8:34:07 PM: src/App.tsx(146,22): error TS2339: Property 'x' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(146,42): error TS7005: Variable 'width' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(147,22): error TS2339: Property 'y' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(147,42): error TS7005: Variable 'height' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(148,22): error TS2339: Property 'size' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(149,22): error TS2339: Property 'speedX' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(150,22): error TS2339: Property 'speedY' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(151,22): error TS2339: Property 'color' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(154,22): error TS2339: Property 'x' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(154,32): error TS2339: Property 'speedX' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(155,22): error TS2339: Property 'y' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(155,32): error TS2339: Property 'speedY' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(156,26): error TS2339: Property 'size' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(156,43): error TS2339: Property 'size' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(157,26): error TS2339: Property 'x' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(157,40): error TS2339: Property 'x' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(157,44): error TS7005: Variable 'width' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(157,58): error TS2339: Property 'y' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(157,72): error TS2339: Property 'y' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(157,76): error TS7005: Variable 'height' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(158,26): error TS2339: Property 'x' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(158,46): error TS7005: Variable 'width' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(159,26): error TS2339: Property 'y' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(159,46): error TS7005: Variable 'height' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(160,26): error TS2339: Property 'size' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(164,38): error TS2339: Property 'color' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(166,30): error TS2339: Property 'x' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(166,38): error TS2339: Property 'y' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(166,46): error TS2339: Property 'size' does not exist on type 'Particle'.
-8:34:07 PM: src/App.tsx(175,28): error TS2339: Property 'width' does not exist on type 'never'.
-8:34:07 PM: src/App.tsx(175,41): error TS2339: Property 'offsetWidth' does not exist on type 'Element'.
-8:34:07 PM: src/App.tsx(176,29): error TS2339: Property 'height' does not exist on type 'never'.
-8:34:07 PM: src/App.tsx(176,43): error TS2339: Property 'offsetHeight' does not exist on type 'Element'.
-8:34:07 PM: src/App.tsx(185,33): error TS7005: Variable 'width' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(185,40): error TS7005: Variable 'height' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(186,13): error TS7005: Variable 'particles' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(186,31): error TS7006: Parameter 'p' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(200,34): error TS7005: Variable 'animationFrameId' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(264,24): error TS7031: Binding element 'icon' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(264,30): error TS7031: Binding element 'title' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(264,37): error TS7031: Binding element 'children' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(311,24): error TS7031: Binding element 'imgSrc' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(311,32): error TS7031: Binding element 'title' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(311,39): error TS7031: Binding element 'href' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(311,45): error TS7031: Binding element 'children' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(392,33): error TS7006: Parameter 'group' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(392,40): error TS7006: Parameter 'value' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(405,27): error TS7006: Parameter 'e' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(408,26): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: string) => string'.
-8:34:07 PM: src/App.tsx(422,30): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: string) => string'.
-8:34:07 PM: src/App.tsx(430,30): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: string) => string'.
-8:34:07 PM: src/App.tsx(433,18): error TS6133: 'error' is declared but its value is never read.
-8:34:07 PM: src/App.tsx(434,26): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: string) => string'.
-8:34:07 PM: src/App.tsx(450,29): error TS7031: Binding element 'group' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(450,36): error TS7031: Binding element 'value' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(454,114): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ budget: string; service: string; name: string; email: string; }'.
-src/App.tsx(460,35): error TS7031: Binding element 'id' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(460,39): error TS7031: Binding element 'type' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(460,45): error TS7031: Binding element 'placeholder' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(460,58): error TS7031: Binding element 'value' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(460,65): error TS7031: Binding element 'onChange' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(523,131): error TS7006: Parameter 'e' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(524,139): error TS7006: Parameter 'e' implicitly has an 'any' type.
-8:34:07 PM: src/App.tsx(552,113): error TS2339: Property 'text' does not exist on type 'string'.
-8:34:07 PM: src/App.tsx(552,159): error TS2339: Property 'type' does not exist on type 'string'.
-8:34:07 PM: src/App.tsx(552,224): error TS2339: Property 'text' does not exist on type 'string'.
-8:34:08 PM: ​
-8:34:08 PM: "build.command" failed                                        
-8:34:08 PM: ────────────────────────────────────────────────────────────────
-8:34:08 PM: ​
-8:34:08 PM:   Error message
-8:34:08 PM:   Command failed with exit code 2: npm run build (https://ntl.fyi/exit-code-2)
-8:34:08 PM: ​
-8:34:08 PM:   Error location
-8:34:08 PM:   In Build command from Netlify app:
-8:34:08 PM:   npm run build
-8:34:08 PM: ​
-8:34:08 PM:   Resolved config
-8:34:08 PM:   build:
-8:34:08 PM:     command: npm run build
-8:34:08 PM:     commandOrigin: ui
-8:34:08 PM:     environment:
-8:34:08 PM:       - SENDGRID_API_KEY
-8:34:08 PM:     publish: /opt/build/repo/dist
-8:34:08 PM:     publishOrigin: ui
-8:34:08 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
-8:34:08 PM: Failing build: Failed to build site
-8:34:09 PM: Finished processing build request in 31.631s
+8:39:21 PM: Netlify Build                                                 
+8:39:21 PM: ────────────────────────────────────────────────────────────────
+8:39:21 PM: ​
+8:39:21 PM: ❯ Version
+8:39:21 PM:   @netlify/build 35.1.6
+8:39:21 PM: ​
+8:39:21 PM: ❯ Flags
+8:39:21 PM:   accountId: 6861d4f64a386cd9d7ac82e0
+8:39:21 PM:   baseRelDir: true
+8:39:21 PM:   buildId: 68cb54a9ab3ccc0008c3cb8b
+8:39:21 PM:   deployId: 68cb54a9ab3ccc0008c3cb8d
+8:39:21 PM: ​
+8:39:21 PM: ❯ Current directory
+8:39:21 PM:   /opt/build/repo
+8:39:21 PM: ​
+8:39:21 PM: ❯ Config file
+8:39:21 PM:   No config file was defined: using default values.
+8:39:21 PM: ​
+8:39:21 PM: ❯ Context
+8:39:21 PM:   production
+8:39:21 PM: ​
+8:39:21 PM: ❯ Installing extensions
+8:39:21 PM:    - neon
+8:39:47 PM: ​
+8:39:47 PM: ❯ Loading extensions
+8:39:47 PM:    - neon
+8:39:48 PM: ​
+8:39:48 PM: Build command from Netlify app                                
+8:39:48 PM: ────────────────────────────────────────────────────────────────
+8:39:48 PM: ​
+8:39:48 PM: $ npm run build
+8:39:48 PM: > synta-studio-new@0.0.0 build
+8:39:48 PM: > tsc -b && vite build
+8:39:49 PM: src/App.tsx(1,52): error TS1484: 'FC' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+8:39:49 PM: src/App.tsx(1,56): error TS1484: 'ReactNode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+8:39:49 PM: src/App.tsx(1,67): error TS1484: 'Dispatch' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+8:39:49 PM: src/App.tsx(1,77): error TS1484: 'SetStateAction' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+8:39:49 PM: src/App.tsx(131,18): error TS2352: Conversion of type 'Dispatch<SetStateAction<Element | null>>' to type 'RefObject<HTMLDivElement>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+8:39:49 PM: src/App.tsx(223,17): error TS18047: 'ctx' is possibly 'null'.
+8:39:49 PM: src/App.tsx(224,17): error TS18047: 'ctx' is possibly 'null'.
+8:39:49 PM: src/App.tsx(225,17): error TS18047: 'ctx' is possibly 'null'.
+8:39:49 PM: src/App.tsx(226,17): error TS18047: 'ctx' is possibly 'null'.
+8:39:49 PM: src/App.tsx(227,17): error TS18047: 'ctx' is possibly 'null'.
+8:39:49 PM: ​
+8:39:49 PM: "build.command" failed                                        
+8:39:49 PM: ────────────────────────────────────────────────────────────────
+8:39:49 PM: ​
+8:39:49 PM:   Error message
+8:39:49 PM:   Command failed with exit code 2: npm run build (https://ntl.fyi/exit-code-2)
+8:39:49 PM: ​
+8:39:49 PM:   Error location
+8:39:49 PM:   In Build command from Netlify app:
+8:39:49 PM:   npm run build
+8:39:49 PM: ​
+8:39:49 PM:   Resolved config
+8:39:49 PM:   build:
+8:39:49 PM:     command: npm run build
+8:39:49 PM:     commandOrigin: ui
+8:39:49 PM:     environment:
+8:39:49 PM:       - SENDGRID_API_KEY
+8:39:49 PM:     publish: /opt/build/repo/dist
+8:39:49 PM:     publishOrigin: ui
+8:39:50 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+8:39:50 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+8:39:50 PM: Failing build: Failed to build site
+8:39:50 PM: Finished processing build request in 43.163s
 Deploying
 Skipped
 Cleanup

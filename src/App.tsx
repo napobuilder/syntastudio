@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, FC, ReactNode, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect, useRef, useCallback, type FC, type ReactNode, type Dispatch, type SetStateAction } from 'react';
 import evaImage from './assets/eva.webp';
 import voiceAcademyImage from './assets/voiceacademy1.webp';
 
@@ -128,7 +128,7 @@ const ScrollReveal: FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
 
     return (
         <div 
-            ref={ref as React.RefObject<HTMLDivElement>}
+            ref={ref}
             className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
             style={{ transitionDelay: `${delay}ms` }}
         >
@@ -220,11 +220,11 @@ const HeroCanvas: FC = () => {
                 }
             }
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.closePath();
+                ctx!.fillStyle = this.color;
+                ctx!.beginPath();
+                ctx!.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx!.fill();
+                ctx!.closePath();
             }
         }
 
@@ -241,7 +241,7 @@ const HeroCanvas: FC = () => {
         };
 
         const animate = () => {
-            ctx.clearRect(0, 0, width, height);
+            ctx!.clearRect(0, 0, width, height);
             particles.forEach(p => {
                 p.update();
                 p.draw();
