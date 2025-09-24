@@ -262,6 +262,10 @@ const Hero: FC = () => {
     const smoothScrollTo = useSmoothScroll();
     const heroTitle = "Soluciones E-Commerce para Productos y Servicios Especializados";
 
+    const handleScrollClick = (selector: string) => {
+        smoothScrollTo(selector);
+    };
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -347,10 +351,10 @@ const Hero: FC = () => {
                         className="flex flex-wrap justify-center gap-4"
                         variants={itemVariants}
                     >
-                        <button onClick={() => smoothScrollTo('#contact')} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 transition-all duration-500 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] active:scale-95 bg-[length:200%_auto] hover:bg-[right_center]">
+                        <button onClick={() => handleScrollClick('#contact')} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 transition-all duration-500 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] active:scale-95 bg-[length:200%_auto] hover:bg-[right_center]">
                             Agendar una Consulta
                         </button>
-                        <button onClick={() => smoothScrollTo('#portfolio')} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-white/5 hover:bg-white/10 border border-[#222222] hover:border-pink-400/50 transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] active:scale-95">
+                        <button onClick={() => handleScrollClick('#portfolio')} className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-white/5 hover:bg-white/10 border border-[#222222] hover:border-pink-400/50 transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] active:scale-95">
                             Ver Proyectos
                         </button>
                     </motion.div>
