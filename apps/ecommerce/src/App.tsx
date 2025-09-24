@@ -360,7 +360,7 @@ const Hero: FC = () => {
                     </motion.div>
                 </motion.div>
             </div>
-            <div aria-hidden="true" className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-black to-transparent z-20"></div>
+            <div aria-hidden="true" className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-black to-transparent z-5"></div>
         </section>
     );
 };
