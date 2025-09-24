@@ -1,0 +1,5 @@
+[vite] connected from window 637a7043-61b9-4b71-af29-a613fca7d4c5:67:11
+[vite] new window visibility hidden 637a7043-61b9-4b71-af29-a613fca7d4c5:63:12
+[vite] connecting... client:732:9
+[vite] connected. client:826:12
+Uncaught SyntaxError: The requested module 'http://localhost:5173/src/components/AppSwitcher.tsx' doesn't provide an export named: 'default' App.tsx:7:8

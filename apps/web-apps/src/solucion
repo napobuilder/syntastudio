@@ -1,0 +1,259 @@
+¡Excelente! He analizado el video y tu código. Has dado con dos errores muy interesantes y comunes, uno relacionado con el manejo de estado en animaciones y el otro con un anti-patrón en la estructura de componentes de React. Como tu Arquitecto, no solo te daré la solución, sino que te explicaré la causa raíz para que no vuelva a ocurrir.
+
+Aquí está mi diagnóstico completo.
+
+Diagnóstico de ContactForm.tsx
+1. Resumen del Problema:
+Se han identificado dos fallos de comportamiento en el componente ContactForm:
+
+Error de Renderizado (Flicker): El botón "Enviar Solicitud" aparece momentáneamente al cargar el formulario y luego desaparece, en lugar de mostrarse únicamente en el paso final.
+
+Error de Experiencia de Usuario (Pérdida de Foco): Los campos de texto (FloatingLabelInput) pierden el foco después de escribir un solo carácter, obligando al usuario a hacer clic repetidamente para poder escribir.
+
+2. Causa Raíz Detallada:
+
+Parpadeo del Botón: El problema reside en cómo framer-motion gestiona la entrada y salida de elementos. El botón "Atrás" está correctamente envuelto en un componente <AnimatePresence>, que gestiona su ciclo de vida de animación (incluyendo la animación de exit). Sin embargo, el botón "Enviar Solicitud" está fuera de este contexto. Se renderiza condicionalmente, pero AnimatePresence no está controlando su aparición, lo que puede causar este "flash" en el renderizado inicial antes de que la lógica de React lo oculte definitivamente.
+
+Pérdida de Foco en el Input: Este es un error arquitectónico más profundo. Los componentes OptionButton y FloatingLabelInput están definidos dentro de la función del componente ContactForm. Esto significa que cada vez que el estado de ContactForm cambia (por ejemplo, al escribir una letra con setFormData), el componente ContactForm se vuelve a renderizar por completo. Al hacerlo, re-define desde cero las funciones OptionButton y FloatingLabelInput. Para React, el FloatingLabelInput del render anterior y el del render actual son dos componentes completamente diferentes. Como resultado, React desmonta el componente antiguo (perdiendo el foco) y monta uno nuevo.
+
+3. Código Corregido:
+He refactorizado tu código para solucionar ambos problemas de raíz. Los cambios principales son:
+
+Mover las definiciones de los componentes OptionButton y FloatingLabelInput fuera del componente ContactForm.
+
+Envolver el botón "Enviar Solicitud" dentro del mismo <AnimatePresence> que el botón "Atrás" para que su ciclo de vida sea gestionado correctamente.
+
+Aquí tienes el código completamente funcional. Puedes reemplazar todo tu componente ContactForm y los componentes anidados que moví.
+
+TypeScript
+
+// --- Componentes de UI (AHORA FUERA DEL FORMULARIO) ---
+// Se mueven aquí para evitar que se re-definan en cada render,
+// lo que causaba la pérdida de foco en los inputs.
+
+const FloatingLabelInput: FC<FloatingLabelInputProps> = ({ id, type, placeholder, value, onChange }) => (
+    <div className="relative">
+        <input
+            id={id}
+            type={type}
+            placeholder=" " 
+            className="peer w-full p-3 bg-[#111111] border border-[#222222] text-white rounded-lg focus:outline-none focus:border-pink-400 transition-colors"
+            value={value}
+            onChange={onChange}
+            required
+        />
+        <label
+            htmlFor={id}
+            className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-[#111111] px-2 left-1 peer-focus:px-2 peer-focus:text-pink-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4"
+        >
+            {placeholder}
+        </label>
+    </div>
+);
+
+const OptionButton: FC<OptionButtonProps> = ({ group, value, onClick, isSelected }) => (
+    <button
+        type="button"
+        onClick={() => onClick(group, value)}
+        className={`p-4 rounded-lg transition-all duration-200 w-full text-white transform active:scale-95 ${isSelected ? 'border-pink-400 bg-pink-500/10 ring-2 ring-pink-400' : 'bg-[#111111] border border-[#222222] hover:border-pink-400/50 hover:bg-[#1a1a1a]'}`}
+    >
+        {value}
+    </button>
+);
+
+
+// --- Componente del Formulario (CORREGIDO) ---
+const ContactForm: FC = () => {
+    const [currentStep, setCurrentStep] = useState(1);
+    const [direction, setDirection] = useState(0);
+    const [formData, setFormData] = useState<FormData>({ budget: '', service: '', name: '', email: '' });
+    const [message, setMessage] = useState<Message | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const totalSteps = 3;
+
+    const handleOptionSelect = (group: 'budget' | 'service', value: string) => {
+        setDirection(1);
+        setFormData(prev => ({ ...prev, [group]: value }));
+        setTimeout(() => {
+            if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
+        }, 300);
+    };
+
+    const handleBack = () => {
+        setDirection(-1);
+        if (currentStep > 1) {
+            setCurrentStep(currentStep - 1);
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!formData.name || !formData.email) {
+            setMessage({ type: 'error', text: 'Por favor, completa tu nombre y email.' });
+            return;
+        }
+        setIsSubmitting(true);
+
+        fetch('https://formspree.io/f/mjkobbze', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+            if (response.ok) {
+                setMessage({ type: 'success', text: `¡Gracias, ${formData.name}! Tu solicitud ha sido enviada.` });
+                setTimeout(() => {
+                    setCurrentStep(1);
+                    setFormData({ budget: '', service: '', name: '', email: '' });
+                    setMessage(null);
+                    setIsSubmitting(false);
+                }, 4000);
+            } else {
+                setMessage({ type: 'error', text: 'Oops! Hubo un problema al enviar tu formulario.' });
+                setIsSubmitting(false);
+            }
+        }).catch(() => {
+            setMessage({ type: 'error', text: 'Oops! Hubo un problema al enviar tu formulario.' });
+            setIsSubmitting(false);
+        });
+    };
+
+    const formVariants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? '100%' : '-100%',
+            opacity: 0
+        }),
+        center: {
+            x: 0,
+            opacity: 1
+        },
+        exit: (direction: number) => ({
+            x: direction < 0 ? '100%' : '-100%',
+            opacity: 0
+        })
+    };
+
+    return (
+        <ScrollReveal>
+            <div 
+                className="max-w-2xl mx-auto p-6 sm:p-10 border border-[#222222] rounded-lg"
+                style={{
+                    backgroundColor: '#0a0a0a',
+                    backgroundImage: `
+                        radial-gradient(at 20% 80%, hsla(258, 82%, 58%, 0.2) 0px, transparent 50%),
+                        radial-gradient(at 80% 10%, hsla(320, 82%, 58%, 0.25) 0px, transparent 50%)
+                    `
+                }}
+            >
+                <form onSubmit={handleSubmit}>
+                    <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
+                    <div className="relative overflow-hidden" style={{ minHeight: '220px' }}>
+                        <AnimatePresence initial={false} custom={direction} mode="wait">
+                            <motion.div
+                                key={currentStep}
+                                custom={direction}
+                                variants={formVariants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                                className="absolute w-full"
+                            >
+                                {currentStep === 1 && (
+                                    <div>
+                                        <label className="block text-lg font-semibold mb-4 text-center text-white">¿Cuál es tu presupuesto?</label>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-1">
+                                            {[
+                                                '$1k - $2k',
+                                                '$2k - $5k',
+                                                '$5k - $10k',
+                                                '$10k+'
+                                            ].map(val => <OptionButton key={val} group="budget" value={val} onClick={handleOptionSelect} isSelected={formData.budget === val} />)}
+                                        </div>
+                                    </div>
+                                )}
+                                {currentStep === 2 && (
+                                    <div>
+                                        <label className="block text-lg font-semibold mb-4 text-center text-white">¿Qué servicio te interesa más?</label>
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            {[
+                                                'Desarrollo Full-Stack',
+                                                'Integración de IA',
+                                                'Diseño UX/UI',
+                                                'Micro-SaaS'
+                                            ].map(val => <OptionButton key={val} group="service" value={val} onClick={handleOptionSelect} isSelected={formData.service === val} />)}
+                                        </div>
+                                    </div>
+                                )}
+                                {currentStep === 3 && (
+                                    <div>
+                                        <label className="block text-lg font-semibold mb-4 text-center text-white">¡Casi listos!</label>
+                                        <div className="space-y-6 px-1">
+                                            <FloatingLabelInput id="name" type="text" placeholder="Tu Nombre" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
+                                            <FloatingLabelInput id="email" type="email" placeholder="Tu Mejor Email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
+                                        </div>
+                                    </div>
+                                )}
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+
+                    <div className="mt-8 flex items-center justify-between h-14">
+                        <AnimatePresence>
+                            {currentStep > 1 && (
+                                <motion.button
+                                    type="button"
+                                    onClick={handleBack}
+                                    className="text-gray-400 hover:text-white font-semibold py-2 px-3 rounded-lg transition-colors duration-300 flex items-center gap-x-1"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                                    Atrás
+                                </motion.button>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Contenedor para alinear el botón de envío a la derecha */}
+                        <div className="flex-grow flex justify-end">
+                            <AnimatePresence>
+                                {currentStep === totalSteps && (
+                                    <motion.button 
+                                        type="submit" 
+                                        disabled={isSubmitting} 
+                                        className="text-white font-semibold py-3 px-8 rounded-full text-lg bg-gradient-to-r from-purple-500 via-pink-500 to-violet-600 transition-all duration-500 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(236,72,153,0.6)] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none"
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.8 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        {isSubmitting ? 'Enviando...' : 'Enviar Solicitud'}
+                                    </motion.button>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    </div>
+                </form>
+                {message && <div className={`mt-2 text-center text-sm transition-opacity duration-300 ${message.text ? 'opacity-100' : 'opacity-0'} ${message.type === 'error' ? 'text-red-400' : 'text-green-400'}`}>{message.text}</div>}
+            </div>
+        </ScrollReveal>
+    );
+};
+
+4. Verificación Recomendada:
+Reemplaza el código en tu proyecto, ejecuta npm run dev y prueba el formulario. Deberías observar que:
+
+El botón "Enviar Solicitud" ya no parpadea al inicio.
+
+Puedes escribir de forma fluida en los campos de nombre y email sin que pierdan el foco.
+
+5. Detección de Patrones Sistémicos:
+El error de la pérdida de foco es un síntoma de un patrón de desarrollo que debemos corregir. Definir componentes funcionales dentro de otros componentes funcionales es un anti-patrón en React. Causa re-renderizados ineficientes y bugs como el que experimentaste.
+
+En tu código original, tanto FloatingLabelInput como OptionButton sufrían de este problema. Aunque en OptionButton no lo notabas porque su acción te llevaba al siguiente paso, el problema existía igualmente. La solución que te he proporcionado, moviendo ambos componentes fuera de ContactForm, ataca la causa raíz y establece un patrón de codificación mucho más limpio y robusto para el futuro.
+
+Con estos cambios, no solo corriges los errores visibles, sino que fortaleces la arquitectura de tu formulario, haciéndolo más robusto y predecible. ¡Excelente trabajo al detectarlo!

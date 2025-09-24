@@ -1,0 +1,67 @@
+
+
+[plugin:vite:react-babel] C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\src\components\ContactForm.tsx: Unexpected token, expected "," (187:56)
+  190 |                                             ].map(val => <OptionButton key={val} group="budget" value={val} onClick={handleOptionSelect} isSelected={formData.budget === val} />)}
+
+C:/Users/Napoleon/Desktop/Synta New Studio/synta-studio-new/src/components/ContactForm.tsx:187:56
+
+185 |                                              {[
+186 |                                                  '$1k - $2k',
+187 |                                                  '$2k - '$5k',
+    |                                                          ^
+188 |                                                  '$5k - $10k',
+189 |                                                  '$10k+'
+
+    at constructor (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:367:19)
+    at TypeScriptParserMixin.raise (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:6630:19)
+    at TypeScriptParserMixin.unexpected (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:6650:16)
+    at TypeScriptParserMixin.expect (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:6930:12)
+    at TypeScriptParserMixin.parseExprList (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:12151:14)
+    at TypeScriptParserMixin.parseArrayLike (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:12067:26)
+    at TypeScriptParserMixin.parseArrayLike (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:9273:24)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11339:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:4797:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11085:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11070:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11050:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:9857:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10903:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10908:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10885:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10835:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:9806:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10788:23)
+    at C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10784:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:12436:12)
+    at TypeScriptParserMixin.parseExpression (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10784:17)
+    at TypeScriptParserMixin.jsxParseExpressionContainer (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:4665:31)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:4744:36)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:4731:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:4782:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:4792:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11085:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11070:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11050:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:9857:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10903:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10908:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10885:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10835:21)
+    at C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:9795:39
+    at TypeScriptParserMixin.tryParse (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:6938:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:9795:18)
+    at C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10804:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:12436:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10804:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:12503:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11683:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11335:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:4797:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11085:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11070:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:11050:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:9857:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\node_modules\@babel\parser\lib\index.js:10903:61)
+
+Click outside, press Esc key, or fix the code to dismiss.
+You can also disable this overlay by setting server.hmr.overlay to false in vite.config.ts.
