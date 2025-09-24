@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, type FC, type ReactNode } from 'react';
+import { useEffect, useRef, useCallback, type FC, type ReactNode } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { ContactForm } from './components/ContactForm';
 import { ScrollReveal } from './components/ScrollReveal';
