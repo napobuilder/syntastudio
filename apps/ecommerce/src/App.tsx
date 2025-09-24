@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, type FC, type ReactNode } from 'react';
+import { useEffect, useRef, useCallback, type FC, type ReactNode } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import evaImage from './assets/eva.webp';
 import voiceAcademyImage from './assets/voiceacademy1.webp';

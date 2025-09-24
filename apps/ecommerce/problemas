@@ -1,5 +1,264 @@
-[vite] connected from window 637a7043-61b9-4b71-af29-a613fca7d4c5:67:11
-[vite] new window visibility hidden 637a7043-61b9-4b71-af29-a613fca7d4c5:63:12
-[vite] connecting... client:732:9
-[vite] connected. client:826:12
-Uncaught SyntaxError: The requested module 'http://localhost:5173/src/components/AppSwitcher.tsx' doesn't provide an export named: 'default' App.tsx:7:8
+
+Skip to main content
+
+
+W
+Switch teams
+Projects
+Builds
+Extensions
+Domains
+Members
+Audit log
+Security Scorecard
+Usage & billing
+Team settings
+Visual editor dashboard
+Upgrade
+
+
+Projects
+syntastudio.com
+Switch projects
+Join NTL DEPLOY
+
+News
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Support
+Project navigation
+Project overview
+Project configuration
+Deploys
+Preview Servers
+Logs
+Metrics
+Domain management
+Forms
+Blobs
+Extensions
+Neon
+Deploy detailsYour deploy failed due to an error
+Deploy failed for syntastudio
+A failure prevented us from deploying your project.
+Why did it fail?
+feat: Refactor to monorepo, enhance UI, and fix bugs
+Today at 6:13 PM, by napobuildernapobuilder on GitHub
+
+Production: master@87177a4
+
+Functions
+Retry
+Deploy settings
+Delete deploy
+Deploy log
+Why did it fail?
+
+
+
+
+Maximize log
+Initializing
+Complete
+Building
+Failed
+6:14:13 PM: Netlify Build                                                 
+6:14:13 PM: ────────────────────────────────────────────────────────────────
+6:14:13 PM: ​
+6:14:13 PM: ❯ Version
+6:14:13 PM:   @netlify/build 35.1.8
+6:14:13 PM: ​
+6:14:13 PM: ❯ Flags
+6:14:13 PM:   accountId: 6861d4f64a386cd9d7ac82e0
+6:14:13 PM:   baseRelDir: true
+6:14:13 PM:   buildId: 68d46d1fc3eb8c0008b1bd0f
+6:14:13 PM:   deployId: 68d46d1fc3eb8c0008b1bd11
+6:14:13 PM: ​
+6:14:13 PM: ❯ Current directory
+6:14:13 PM:   /opt/build/repo
+6:14:13 PM: ​
+6:14:13 PM: ❯ Config file
+6:14:13 PM:   No config file was defined: using default values.
+6:14:13 PM: ​
+6:14:13 PM: ❯ Context
+6:14:13 PM:   production
+6:14:13 PM: ​
+6:14:13 PM: ❯ Installing extensions
+6:14:13 PM:    - neon
+6:14:14 PM: ​
+6:14:14 PM: ❯ Loading extensions
+6:14:14 PM:    - neon
+6:14:15 PM: ​
+6:14:15 PM: Build command from Netlify app                                
+6:14:15 PM: ────────────────────────────────────────────────────────────────
+6:14:15 PM: ​
+6:14:15 PM: $ npm run build
+6:14:15 PM: > build
+6:14:15 PM: > npm-run-all --parallel build:*
+6:14:16 PM: > build:ecommerce
+6:14:16 PM: > npm run build --workspace=@synta/ecommerce
+6:14:16 PM: > build:web-apps
+6:14:16 PM: > npm run build --workspace=@synta/web-apps
+6:14:16 PM: > @synta/ecommerce@0.0.0 build
+6:14:16 PM: > tsc -b && vite build
+6:14:16 PM: > @synta/web-apps@0.0.0 build
+6:14:16 PM: > tsc -b && vite build
+6:14:18 PM: src/components/AppSwitcher.tsx(89,25): error TS2322: Type '{ hidden: { opacity: number; scale: number; y: number; }; visible: { opacity: number; scale: number; y: number; transition: { duration: number; ease: string; }; }; exit: { opacity: number; scale: number; y: number; transition: { ...; }; }; }' is not assignable to type 'Variants'.
+6:14:18 PM:   Property 'visible' is incompatible with index signature.
+6:14:18 PM:     Type '{ opacity: number; scale: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+6:14:18 PM:       Type '{ opacity: number; scale: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+6:14:18 PM:         Type '{ opacity: number; scale: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues | undefined; }'.
+6:14:18 PM:           Types of property 'transition' are incompatible.
+6:14:18 PM:             Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any> | undefined'.
+6:14:18 PM:               Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+6:14:18 PM:                 Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+6:14:18 PM:                   Types of property 'ease' are incompatible.
+6:14:18 PM:                     Type 'string' is not assignable to type 'Easing | Easing[] | undefined'.
+6:14:18 PM: src/App.tsx(1,10): error TS6133: 'useState' is declared but its value is never read.
+6:14:18 PM: src/App.tsx(513,14): error TS2304: Cannot find name 'AppSwitcher'.
+6:14:18 PM: src/components/AppSwitcher.tsx(89,25): error TS2322: Type '{ hidden: { opacity: number; scale: number; y: number; }; visible: { opacity: number; scale: number; y: number; transition: { duration: number; ease: string; }; }; exit: { opacity: number; scale: number; y: number; transition: { ...; }; }; }' is not assignable to type 'Variants'.
+6:14:18 PM:   Property 'visible' is incompatible with index signature.
+6:14:18 PM:     Type '{ opacity: number; scale: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+6:14:18 PM:       Type '{ opacity: number; scale: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+6:14:18 PM:         Type '{ opacity: number; scale: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues | undefined; }'.
+6:14:18 PM:           Types of property 'transition' are incompatible.
+6:14:18 PM:             Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any> | undefined'.
+6:14:18 PM:               Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+6:14:18 PM:                 Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+6:14:18 PM:                   Types of property 'ease' are incompatible.
+6:14:18 PM:                     Type 'string' is not assignable to type 'Easing | Easing[] | undefined'.
+6:14:18 PM: src/components/ContactForm.tsx(2,34): error TS6133: 'ReactNode' is declared but its value is never read.
+6:14:18 PM: npm error Lifecycle script `build` failed with error:
+6:14:18 PM: npm error code 2
+6:14:18 PM: npm error path /opt/build/repo/apps/web-apps
+6:14:18 PM: npm error workspace @synta/web-apps@0.0.0
+6:14:18 PM: npm error location /opt/build/repo/apps/web-apps
+6:14:18 PM: npm error command failed
+6:14:18 PM: npm error command sh -c tsc -b && vite build
+6:14:18 PM: npm error Lifecycle script `build` failed with error:
+6:14:18 PM: npm error code 2
+6:14:18 PM: npm error path /opt/build/repo/apps/ecommerce
+6:14:18 PM: npm error workspace @synta/ecommerce@0.0.0
+6:14:18 PM: npm error location /opt/build/repo/apps/ecommerce
+6:14:18 PM: npm error command failed
+6:14:18 PM: npm error command sh -c tsc -b && vite build
+6:14:18 PM: ERROR: "build:web-apps" exited with 2.
+6:14:18 PM: ​
+6:14:18 PM: "build.command" failed                                        
+6:14:18 PM: ────────────────────────────────────────────────────────────────
+6:14:18 PM: ​
+6:14:18 PM:   Error message
+6:14:18 PM:   Command failed with exit code 1: npm run build (https://ntl.fyi/exit-code-1)
+6:14:18 PM: ​
+6:14:18 PM:   Error location
+6:14:18 PM:   In Build command from Netlify app:
+6:14:18 PM:   npm run build
+6:14:18 PM: ​
+6:14:18 PM:   Resolved config
+6:14:18 PM:   build:
+6:14:18 PM:     command: npm run build
+6:14:18 PM:     commandOrigin: ui
+6:14:18 PM:     environment:
+6:14:18 PM:       - SENDGRID_API_KEY
+6:14:18 PM:     publish: /opt/build/repo/dist
+6:14:18 PM:     publishOrigin: ui
+6:14:19 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+6:14:19 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+6:14:19 PM: Failing build: Failed to build site
+6:14:19 PM: Finished processing build request in 27.411s
+Deploying
+Skipped
+Cleanup
+Skipped
+Post-processing
+Skipped
+Docs
+Pricing
+Support
+Blog
+Changelog
+Terms
+© 2025 Netlify
+

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, type FC } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 // --- Types ---
 interface App {
@@ -57,7 +57,7 @@ export const AppSwitcher: FC<AppSwitcherProps> = ({ apps, currentAppUrl }) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [switcherRef]);
 
-    const panelVariants = {
+    const panelVariants: Variants = {
         hidden: { opacity: 0, scale: 0.95, y: -10 },
         visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.2, ease: 'easeOut' } },
         exit: { opacity: 0, scale: 0.95, y: -10, transition: { duration: 0.15, ease: 'easeIn' } }

@@ -27,6 +27,7 @@
 
 # Temporary files
 /favi/
+**/problemas
 
 # OS generated files
 .DS_Store

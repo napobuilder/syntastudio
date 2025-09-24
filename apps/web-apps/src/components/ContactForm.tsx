@@ -1,5 +1,5 @@
 
-import { useState, type FC, type ReactNode } from 'react';
+import { useState, type FC } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ScrollReveal } from './ScrollReveal';
 
