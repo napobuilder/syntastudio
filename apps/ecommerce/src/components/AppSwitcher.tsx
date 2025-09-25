@@ -87,7 +87,7 @@ export const AppSwitcher: FC<AppSwitcherProps> = ({ apps, currentAppUrl }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] flex flex-col p-4"
+            className="fixed inset-0 bg-black z-[100] flex flex-col p-4"
         >
             <div className="flex justify-between items-center mb-8">
                 <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Switch to</h2>
