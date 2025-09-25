@@ -97,7 +97,7 @@ export const AppSwitcher: FC<AppSwitcherProps> = ({ apps, currentAppUrl }) => {
             </div>
             <div className="flex flex-col gap-y-2">
                 {apps.map((app) => (
-                    <a key={app.name} href={app.url} className={`flex items-center justify-between p-4 rounded-lg transition-colors ${app.url === currentAppUrl ? 'bg-white/10' : 'bg-white/5 hover:bg-white/10'}`}>
+                    <a key={app.name} href={app.url} className={`flex items-center justify-between p-4 rounded-lg transition-colors ${app.url === currentAppUrl ? 'bg-white/20' : 'bg-white/10 hover:bg-white/20'}`}>
                         <div>
                             <p className="font-semibold text-white text-lg">{app.name}</p>
                             <p className="text-gray-400">{app.description}</p>
