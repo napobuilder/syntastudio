@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, type FC } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 // --- Types ---
-interface App {
+export interface App {
   name: string;
   url: string;
   description: string;
