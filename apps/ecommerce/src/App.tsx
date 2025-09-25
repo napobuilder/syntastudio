@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { EcommercePage } from './EcommercePage';
-import { WebAppsPage } from '../../web-apps/src/WebAppsPage';
+import EcommercePage from './EcommercePage';
+import WebAppsPage from '../../web-apps/src/WebAppsPage';
 import { AppSwitcher } from './components/AppSwitcher';
 
 const apps = [

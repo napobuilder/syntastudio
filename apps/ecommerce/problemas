@@ -1,22 +1,110 @@
-7:20:07 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
-7:20:06 PM: Deploy site                                                   
-7:20:06 PM: ────────────────────────────────────────────────────────────────
-7:20:06 PM: ​
-7:20:06 PM: Section completed: deploying
-7:20:06 PM: ​
-7:20:06 PM: Configuration error                                           
-7:20:06 PM: ────────────────────────────────────────────────────────────────
-7:20:06 PM: ​
-7:20:06 PM:   Error message
-7:20:06 PM:   Deploy did not succeed: Deploy directory 'dist' does not exist
-7:20:06 PM: ​
-7:20:06 PM:   Resolved config
-7:20:06 PM:   build:
-7:20:06 PM:     command: npm run build
-7:20:06 PM:     commandOrigin: ui
-7:20:06 PM:     environment:
-7:20:06 PM:       - SENDGRID_API_KEY
-7:20:06 PM:     publish: /opt/build/repo/dist
-7:20:06 PM:     publishOrigin: ui
-7:20:06 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
-7:20:07 PM: Failing build: Failed to build site
+8:53:08 PM: Netlify Build                                                 
+8:53:08 PM: ────────────────────────────────────────────────────────────────
+8:53:08 PM: ​
+8:53:08 PM: ❯ Version
+8:53:08 PM:   @netlify/build 35.1.8
+8:53:08 PM: ​
+8:53:08 PM: ❯ Flags
+8:53:08 PM:   accountId: 6861d4f64a386cd9d7ac82e0
+8:53:08 PM:   baseRelDir: true
+8:53:08 PM:   buildId: 68d492590f80070008dad57c
+8:53:08 PM:   deployId: 68d492590f80070008dad57e
+8:53:08 PM: ​
+8:53:08 PM: ❯ Current directory
+8:53:08 PM:   /opt/build/repo
+8:53:08 PM: ​
+8:53:08 PM: ❯ Config file
+8:53:08 PM:   /opt/build/repo/netlify.toml
+8:53:08 PM: ​
+8:53:08 PM: ❯ Context
+8:53:08 PM:   production
+8:53:08 PM: ​
+8:53:08 PM: ❯ Installing extensions
+8:53:08 PM:    - neon
+8:53:09 PM: ​
+8:53:09 PM: ❯ Loading extensions
+8:53:09 PM:    - neon
+8:53:09 PM: ​
+8:53:09 PM: build.command from netlify.toml                               
+8:53:09 PM: ────────────────────────────────────────────────────────────────
+8:53:09 PM: ​
+8:53:09 PM: $ npm run build --workspace=@synta/ecommerce
+8:53:09 PM: > @synta/ecommerce@0.0.0 build
+8:53:09 PM: > tsc -b && vite build
+8:53:11 PM: src/App.tsx(2,10): error TS2614: Module '"./EcommercePage"' has no exported member 'EcommercePage'. Did you mean to use 'import EcommercePage from "./EcommercePage"' instead?
+8:53:11 PM: src/App.tsx(3,10): error TS2614: Module '"../../web-apps/src/WebAppsPage"' has no exported member 'WebAppsPage'. Did you mean to use 'import WebAppsPage from "../../web-apps/src/WebAppsPage"' instead?
+8:53:11 PM: ../web-apps/src/WebAppsPage.tsx(220,58): error TS2741: Property 'href' is missing in type '{ children: string; imgSrc: string; title: string; }' but required in type 'ProjectCardProps'.
+8:53:11 PM: ../web-apps/src/WebAppsPage.tsx(221,58): error TS2741: Property 'href' is missing in type '{ children: string; imgSrc: string; title: string; }' but required in type 'ProjectCardProps'.
+8:53:12 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+8:53:12 PM: npm error Lifecycle script `build` failed with error:
+8:53:12 PM: npm error code 2
+8:53:12 PM: npm error path /opt/build/repo/apps/ecommerce
+8:53:12 PM: npm error workspace @synta/ecommerce@0.0.0
+8:53:12 PM: npm error location /opt/build/repo/apps/ecommerce
+8:53:12 PM: npm error command failed
+8:53:12 PM: npm error command sh -c tsc -b && vite build
+8:53:12 PM: ​
+8:53:12 PM: "build.command" failed                                        
+8:53:12 PM: ────────────────────────────────────────────────────────────────
+8:53:12 PM: ​
+8:53:12 PM:   Error message
+8:53:12 PM:   Command failed with exit code 2: npm run build --workspace=@synta/ecommerce (https://ntl.fyi/exit-code-2)
+8:53:12 PM: ​
+8:53:12 PM:   Error location
+8:53:12 PM:   In build.command from netlify.toml:
+8:53:12 PM:   npm run build --workspace=@synta/ecommerce
+8:53:12 PM: ​
+8:53:12 PM:   Resolved config
+8:53:12 PM:   build:
+8:53:12 PM:     command: npm run build --workspace=@synta/ecommerce
+8:53:12 PM:     commandOrigin: config
+8:53:12 PM:     environment:
+8:53:12 PM:       - SENDGRID_API_KEY
+8:53:12 PM:     publish: /opt/build/repo/apps/ecommerce/dist
+8:53:12 PM:     publishOrigin: config
+8:53:12 PM:   redirects:
+8:53:12 PM:     - from: /*
+      status: 200
+      to: /index.html
+  redirectsOrigin: config
+8:53:12 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+8:53:12 PM: Failing build: Failed to build site
+8:53:13 PM: Finished processing build request in 29.151s
+
+
+
+
+tambien revisa esto:
+
+
+(!) Failed to run dependency scan. Skipping dependency pre-bundling. Error:   Failed to scan for dependencies from entries: 
+  C:/Users/Napoleon/Desktop/Synta New Studio/synta-studio-new/syntastudio-monorepo/apps/ecommerce/index.html
+
+  X [ERROR] No matching export in "src/EcommercePage.tsx" for 
+import "EcommercePage"
+
+    src/App.tsx:2:9:
+      2 │ import { EcommercePage } from './EcommercePage';    
+        ╵          ~~~~~~~~~~~~~
+
+
+X [ERROR] No matching export in "../web-apps/src/WebAppsPage.tsx" for import "WebAppsPage"
+
+    src/App.tsx:3:9:
+      3 │ import { WebAppsPage } from '../../web-apps/src/WebAppsPage';
+        ╵          ~~~~~~~~~~~
+
+
+    at failureErrorWithLog (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:926:25
+    at runOnEndCallbacks (C:\Users\Napoleon\Desktop\Synta New 
+Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:1307:45)
+    at buildResponseToResult (C:\Users\Napoleon\Desktop\Synta 
+New Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:924:7)
+    at C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:936:9
+    at new Promise (<anonymous>)
+    at requestCallbacks.on-end (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:935:54)
+    at handleRequest (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:628:17)
+    at handleIncomingPacket (C:\Users\Napoleon\Desktop\Synta New Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:653:7)
+    at Socket.readFromStdout (C:\Users\Napoleon\Desktop\Synta 
+New Studio\synta-studio-new\syntastudio-monorepo\node_modules\esbuild\lib\main.js:581:7)

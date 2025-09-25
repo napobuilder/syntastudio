@@ -6,7 +6,7 @@ import { Portfolio } from './components/sections/Portfolio';
 import { About } from './components/sections/About';
 import { Contact } from './components/sections/Contact';
 
-export default function App() {
+export default function EcommercePage() {
     return (
         <div className="bg-gradient-to-b from-black via-[#050505] to-black antialiased">
             <Header />

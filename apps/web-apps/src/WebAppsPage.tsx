@@ -217,8 +217,8 @@ const Portfolio: FC = () => {
                     <ScrollReveal delay={0.15}><p className="text-lg mt-4 max-w-2xl mx-auto text-[#A3A3A3] font-light">Una muestra de nuestro trabajo en acción.</p></ScrollReveal>
                 </div>
                 <motion.div className="grid md:grid-cols-2 gap-8" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-                    <motion.div variants={itemVariants}><ProjectCard imgSrc="https://i.imgur.com/uR2cM5n.png" title="NeuroMetric">Una plataforma SaaS de nicho diseñada para modernizar la práctica psiquiátrica. Automatiza la recolección de datos del paciente a través de formularios interactivos y provee diagnósticos preliminares asistidos por IA, optimizando el tiempo del especialista.</ProjectCard></motion.div>
-                    <motion.div variants={itemVariants}><ProjectCard imgSrc="https://i.imgur.com/4t9eAZn.png" title="AgentDeck">Un laboratorio de 'Context Engineering' para la API de Gemini. Esta herramienta interna permite a los desarrolladores construir, probar y colaborar en una librería de agentes de IA, acelerando radicalmente el ciclo de desarrollo de aplicaciones inteligentes.</ProjectCard></motion.div>
+                    <motion.div variants={itemVariants}><ProjectCard imgSrc="https://i.imgur.com/uR2cM5n.png" title="NeuroMetric" href="#">Una plataforma SaaS de nicho diseñada para modernizar la práctica psiquiátrica. Automatiza la recolección de datos del paciente a través de formularios interactivos y provee diagnósticos preliminares asistidos por IA, optimizando el tiempo del especialista.</ProjectCard></motion.div>
+                    <motion.div variants={itemVariants}><ProjectCard imgSrc="https://i.imgur.com/4t9eAZn.png" title="AgentDeck" href="#">Un laboratorio de 'Context Engineering' para la API de Gemini. Esta herramienta interna permite a los desarrolladores construir, probar y colaborar en una librería de agentes de IA, acelerando radicalmente el ciclo de desarrollo de aplicaciones inteligentes.</ProjectCard></motion.div>
                 </motion.div>
             </div>
         </section>
